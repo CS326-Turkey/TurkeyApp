@@ -1,5 +1,5 @@
 var express = require('express');
-var handlebars = require('express3-handlebars');
+var handlebars = require('express-handlebars');
 var app = express();
 app.set('port', process.env.PORT || 3000);
 
