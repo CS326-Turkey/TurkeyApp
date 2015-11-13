@@ -1,0 +1,28 @@
+
+<div style="border: solid 1px; padding: 8px;position:fixed; width:100%;background-color:white">
+	<a href ="/" style="margin-left: 50px;margin-right:20px">Home</a>
+	<a href ="/about" >About</a>		
+	<a href ="/login" style="float:right; margin-right:20px">Log in</a>
+</div>
+<a  href = "/" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px"></a>
+
+<div style="padding:50px">
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<div>{{message}}</div><br>
+
+<form method="post" action="/user/auth">
+  User Name: <br><input type="text" name="name"> <br>
+  Password:  <br><input type="password" name="pass"> <br>
+  Confirm Your Password:  <br><input type="password" name="cpass"> <br>
+  Email: <br><input type="text" name="email"> <br>
+  First Name: <br><input type="text" name="fname"> <br>
+  Last Name: <br><input type="text" name="lname"> <br>
+  Security Question: <br><input type="text" name="question"> <br>
+  Answer: <br><input type="text" name="answer"> <br><br>
+
+  <button>Sign UP</button>
+</form>
+
+</div>
