@@ -37,6 +37,10 @@ app.get('/about', function(req, res){
 	res.render('about');
 });
 
+app.get('/register', function(req, res){
+	res.render('register');
+});
+
 app.get('/team*', function(req, res){
 	if(Object.keys(req.query).length === 0){
 		if(req.path==='/team'||req.path==='/team/'){
