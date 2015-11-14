@@ -63,32 +63,28 @@ app.use(flash());
 // using 'combined' gives you Apache-style logging support.
 app.use(morgan('combined'));
 
-/*--------*/
-/* Routes */
-/*--------*/
+/*-------------*/
+/* Route Setup */
+/*-------------*/
+
+// This adds the external router defined routes to the app.
+app.use('/user', require('./routes/user-routes'));
+app.use('/admin', require('./routes/admin-routes'));
 
 var team = require('./lib/team.js');
+
+/*-------------------------*/
+/*  Generic Public Routes  */
+/* (non-users & non-admin) */
+/*-------------------------*/
 
 app.get('/', function(req, res) {
 	res.render('home');
 });
 
 app.get('/login', function(req, res) {
-	res.render('login');
+	res.redirect('/user/login');
 });
-
-app.get('/profile', function(req, res) {
-	res.render('profile');
-});
-
-app.get('/admin', function(req, res) {
-	res.render('settings');
-});
-
-app.get('/forum', function(req, res) {
-	res.render('forum');
-});
-
 
 app.get('/about', function(req, res){
 	res.render('about');
@@ -122,12 +118,30 @@ app.get('/team*', function(req, res){
 	}
 });
 
+/*-------------------------*/
+/*  Need to decide Router  */
+/*-------------------------*/
+
+app.get('/profile', function(req, res) {
+	res.render('profile');
+});
+
+app.get('/admin', function(req, res) {
+	res.render('settings');
+});
+
+app.get('/forum', function(req, res) {
+	res.render('forum');
+});
 
 app.use(function(req, res){
 	res.status(404);
 	res.render('404');
 });
 
+/*----------------*/
+/*  Error Routes  */
+/*----------------*/
 
 app.use(function(err, req, res, next){
 	console.error(err.stack);
