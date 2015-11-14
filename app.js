@@ -94,6 +94,10 @@ app.get('/register', function(req, res){
 	res.render('register');
 });
 
+app.get('/forgotpassword', function(req, res){
+	res.render('forgotpassword');
+});
+
 app.get('/team*', function(req, res){
 	if(Object.keys(req.query).length === 0){
 		if(req.path==='/team'||req.path==='/team/'){
