@@ -78,27 +78,27 @@ var team = require('./lib/team.js');
 /* (non-users & non-admin) */
 /*-------------------------*/
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
 	res.render('home');
 });
 
-app.get('/login', function(req, res) {
+app.get('/login', (req, res) => {
 	res.redirect('/user/login');
 });
 
-app.get('/about', function(req, res){
+app.get('/about', (req, res) => {
 	res.render('about');
 });
 
-app.get('/register', function(req, res){
+app.get('/register', (req, res) => {
 	res.render('register');
 });
 
-app.get('/forgotpassword', function(req, res){
+app.get('/forgotpassword', (req, res) => {
 	res.render('forgotpassword');
 });
 
-app.get('/team*', function(req, res){
+app.get('/team*', (req, res) => {
 	if(Object.keys(req.query).length === 0){
 		if(req.path==='/team'||req.path==='/team/'){
 			var result = team.all();
@@ -126,19 +126,19 @@ app.get('/team*', function(req, res){
 /*  Need to decide Router  */
 /*-------------------------*/
 
-app.get('/profile', function(req, res) {
+app.get('/profile', (req, res) => {
 	res.render('profile');
 });
 
-app.get('/admin', function(req, res) {
+app.get('/admin', (req, res) => {
 	res.render('settings');
 });
 
-app.get('/forum', function(req, res) {
+app.get('/forum', (req, res) => {
 	res.render('forum');
 });
 
-app.use(function(req, res){
+app.use((req, res) => {
 	res.status(404);
 	res.render('404');
 });
@@ -147,13 +147,17 @@ app.use(function(req, res){
 /*  Error Routes  */
 /*----------------*/
 
-app.use(function(err, req, res, next){
+app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500);
 	res.render('500');
 });
 
-app.listen(app.get('port'), function(){
+/*----------------*/
+/*  Start Server  */
+/*----------------*/
+
+app.listen(app.get('port'), () => {
 	console.log( 'Express started on http://localhost:' +
 			app.get('port') + '; press Ctrl-C to terminate.' );
 });
