@@ -5,3 +5,5 @@ var model = require('../lib/user');
 
 // creates an express "router"
 var router = express.Router();
+
+module.exports = router;
