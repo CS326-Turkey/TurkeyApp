@@ -20,6 +20,9 @@ var cookieParser = require('cookie-parser');
 // morgan for server logging
 var morgan = require('morgan');
 
+// MongoDB database
+var mongodb = require('mongodb');
+
 /*------------*/
 /* Create App */
 /*------------*/
@@ -72,6 +75,22 @@ app.use('/user', require('./routes/user-routes'));
 app.use('/admin', require('./routes/admin-routes'));
 
 var team = require('./lib/team.js');
+
+/*---------------*/
+/* User Database */
+/*---------------*/
+
+// the user database is hosted by mongolabs
+// please ask admin for credentials and databaseURI.js file for auth
+// code sample provided by http://mongodb.github.io/node-mongodb-native/
+
+// uri used to connect to database
+var dburi = require('./lib/databaseURI.js');
+
+// connect to user database
+mongodb.MongoClient.connect(dburi, function(err, db) {
+	var users = db.collection('users');
+});
 
 /*-------------------------*/
 /*  Generic Public Routes  */
