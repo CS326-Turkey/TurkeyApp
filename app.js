@@ -85,7 +85,7 @@ var team = require('./lib/team.js');
 // code sample provided by http://mongodb.github.io/node-mongodb-native/
 
 // uri used to connect to database
-var dburi = require('./lib/databaseURI.js');
+var dburi = require('./lib/credentials.js');
 
 // connect to user database
 mongodb.MongoClient.connect(dburi, function(err, db) {
