@@ -21,7 +21,7 @@ var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 
 // MongoDB database
-var mongodb = require('mongodb');
+var mongojs = require('mongojs');
 
 /*------------*/
 /* Create App */
@@ -81,16 +81,16 @@ var team = require('./lib/team.js');
 /*---------------*/
 
 // the user database is hosted by mongolabs
-// please ask admin for credentials and databaseURI.js file for auth
-// code sample provided by http://mongodb.github.io/node-mongodb-native/
+// please ask admin for credentials.js file for authentication
 
 // uri used to connect to database
 var dburi = require('./lib/credentials.js');
 
 // connect to user database
-mongodb.MongoClient.connect(dburi, function(err, db) {
-	var users = db.collection('users');
-});
+// authMechanism is from class example
+var db = mongojs(dburi, [], {authMechanism: 'ScramSHA1'});
+
+var users = db.collection('users');
 
 /*-------------------------*/
 /*  Generic Public Routes  */
