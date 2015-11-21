@@ -1,8 +1,14 @@
 # TurkeyApp
 ## Overview
-*This should describe your application in a short paragraph. You may pull the text from your previous documents into this paragraph or provide an update if the idea has changed since the last submission.*
+Team Turkey presents Glean, a change to charity program that will help you feel that little goodness, those warm fuzzies for putting your money to good use.
+
+You make a purchase, Glean rounds up the cost, subtracts the actual purchase from the cost, and that difference goes to a charity of your choice!
+
+Glean does this by integrating into your bank account and keeping track of the charges you make. It’s easy, safe, and secure.
 ## How To Run
-*Explain what is required to run your application. It could be as simple as a single command.*
+```bash
+node app.js
+```
 ## Libraries
 *You should provide a list of the libraries your application uses (with links to their github pages) and a short explanation as to how they are being used.*
 ## Views
