@@ -20,8 +20,8 @@ var cookieParser = require('cookie-parser');
 // morgan for server logging
 var morgan = require('morgan');
 
-// MongoDB database
-var mongojs = require('mongojs');
+// user database
+var db = require('./lib/database.js')
 
 /*------------*/
 /* Create App */
@@ -75,22 +75,6 @@ app.use('/user', require('./routes/user-routes'));
 app.use('/admin', require('./routes/admin-routes'));
 
 var team = require('./lib/team.js');
-
-/*---------------*/
-/* User Database */
-/*---------------*/
-
-// the user database is hosted by mongolabs
-// please ask admin for credentials.js file for authentication
-
-// uri used to connect to database
-var dburi = require('./lib/credentials.js');
-
-// connect to user database
-// authMechanism is from class example
-var db = mongojs(dburi, [], {authMechanism: 'ScramSHA1'});
-
-var users = db.collection('users');
 
 /*-------------------------*/
 /*  Generic Public Routes  */
