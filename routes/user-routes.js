@@ -1,3 +1,5 @@
+//Most of the code is from individual assignment 3, cs326, Tim Richards
+
 var express = require('express');
 
 // This gives us access to the user "model".
@@ -9,7 +11,9 @@ var router = express.Router();
 
 // A list of users who are online:
 var online = require('../lib/online').online;
+
 //=================================================================
+
 // Provides a login view
 router.get('/login', (req, res) => {
   // Grab the session if the user is logged in.
@@ -26,6 +30,7 @@ router.get('/login', (req, res) => {
                           message : message });
   }
 });
+
 //=================================================================
 
 router.get('/userhome', (req, res) => {
@@ -39,20 +44,20 @@ router.get('/userhome', (req, res) => {
     res.render('userhome', { title   : 'User Home',
                           message : message ,
                       		name: user.name});
-}
-else{
-	req.flash('adminhome','You are Admin')
-	res.redirect('/admin/adminhome');
-}
   }
-  else {
-    // Grab any messages being sent to us from redirect:
-    req.flash('login', 'You are not logged in')
-    res.redirect('/user/login');
+  else{
+	 req.flash('adminhome','You are Admin')
+	 res.redirect('/admin/adminhome');
   }
+    }
+    else {
+      // Grab any messages being sent to us from redirect:
+      req.flash('login', 'You are not logged in')
+      res.redirect('/user/login');
+    }
 });
-//===============================================================
 
+//===============================================================
 
 router.get('/dash', (req, res) => {
   // Grab the session if the user is logged in.
@@ -65,18 +70,19 @@ router.get('/dash', (req, res) => {
     res.render('dashboard', { title   : 'Dashboard',
                           message : message ,
                       		name: user.name});
-}
-else{
-	req.flash('adminhome','You are Admin')
-	res.redirect('/admin/adminhome');
-}
   }
-  else {
-    // Grab any messages being sent to us from redirect:
-    req.flash('login', 'You are not logged in')
-    res.redirect('/user/login');
+  else{
+	 req.flash('adminhome','You are Admin')
+	 res.redirect('/admin/adminhome');
   }
+    }
+    else {
+      // Grab any messages being sent to us from redirect:
+      req.flash('login', 'You are not logged in')
+      res.redirect('/user/login');
+    }
 });
+
 //=============================================================
 
 router.get('/profile', (req, res) => {
@@ -90,21 +96,20 @@ router.get('/profile', (req, res) => {
     res.render('profile', { title   : 'Profile',
                           message : message ,
                       		name: user.name});
-}
-else{
-	req.flash('adminhome','You are Admin')
-	res.redirect('/admin/adminhome');
-}
   }
-  else {
-    // Grab any messages being sent to us from redirect:
-    req.flash('login', 'You are not logged in')
-    res.redirect('/user/login');
+  else{
+	 req.flash('adminhome','You are Admin')
+	 res.redirect('/admin/adminhome');
   }
+    }
+    else {
+      // Grab any messages being sent to us from redirect:
+      req.flash('login', 'You are not logged in')
+      res.redirect('/user/login');
+    }
 });
 
 //=================================================================
-
 
 router.get('/home', (req, res) => {
 	var user = req.session.user;
@@ -135,6 +140,7 @@ router.get('/home', (req, res) => {
 
 });
 
+//================================================================
 
 // Performs **basic** user authentication.
 router.post('/auth', (req, res) => {
@@ -145,10 +151,10 @@ router.post('/auth', (req, res) => {
   if (user && online[user]) {
   	if(!(user.admin)){
     	res.redirect('/user/userhome');
-	}
-	else{
-		res.redirect('/admin/adminhome')
-	}
+    }
+    else{
+      res.redirect('/admin/adminhome');
+    }
   }
   else {
     // Pull the values from the form:
@@ -183,6 +189,8 @@ router.post('/auth', (req, res) => {
   }
 });
 
+//=======================================================================
+
 // Performs logout functionality - it does nothing!
 router.get('/logout', function(req, res) {
   // Grab the user session if logged in.
@@ -203,47 +211,5 @@ router.get('/logout', function(req, res) {
   // Redirect to login regardless.
   res.redirect('/user/home');
 });
-
-// // Renders the main user view.
-// router.get('/main', function(req, res) {
-//   // Grab the user session if it exists:
-//   var user = req.session.user;
-
-//   // If no session, redirect to login.
-//   if (!user) {
-//     req.flash('login', 'Not logged in');
-//     res.redirect('/user/login');
-//   }
-//   else if (user && !online[user.name]) {
-//     req.flash('login', 'Login Expired');
-//     delete req.session.user;
-//     res.redirect('/user/login')
-//   }
-//   else {
-//     // capture the user object or create a default.
-//     var message = req.flash('main') || 'Login Successful';
-//     res.render('user', { title   : 'User Main',
-//                          message : message,
-//                          name    : user.name });
-//   }
-// });
-
-// // Renders the users that are online.
-// router.get('/online', function(req, res) {
-//   // Grab the user session if it exists:
-//   var user = req.session.user;
-
-//   // If no session, redirect to login.
-//   if (!user) {
-//     req.flash('login', 'Not logged in');
-//     res.redirect('/user/login');
-//   }
-//   else {
-//     res.render('online', {
-//       title : 'Online Users',
-//       online: online
-//     });
-//   }
-// });
 
 module.exports = router;

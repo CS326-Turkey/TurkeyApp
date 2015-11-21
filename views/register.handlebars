@@ -10,10 +10,10 @@
 <div style="padding:50px">
 <h1>Sign Up</h1>
 <p>Please fill in all the information.</p>
+<div>{{message}}</div><br>
 
 
-
-<form method="post" action="/user/auth">
+<form method="post" action="/adduser">
   User Name: <br><input type="text" name="name"> <br>
   Password:  <br><input type="password" name="pass"> <br>
   Confirm Your Password:  <br><input type="password" name="cpass"> <br>
@@ -23,7 +23,7 @@
   Security Question: <br><input type="text" name="question"> <br>
   Answer: <br><input type="text" name="answer"> <br><br>
 
-  <button>Sign UP</button>
+  <button>Sign Up</button>
 </form>
 
 </div>

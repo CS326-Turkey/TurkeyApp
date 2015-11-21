@@ -80,30 +80,13 @@ var team = require('./lib/team.js');
 /*  Generic Public Routes  */
 /* (non-users & non-admin) */
 /*-------------------------*/
-
-app.get('/', (req, res) => {
-	res.redirect('/user/home');
-});
-
-app.get('/logout', (req, res) => {
-	res.redirect('/user/logout');
-});
-
-
-app.get('/dash', (req, res) => {
-	res.redirect('/user/dash');
-});
-
- app.get('/login', (req, res) => {
- 	res.redirect('/user/login');
- });
-
  app.get('/about', (req, res) => {
  	res.render('about');
  });
 
  app.get('/register', (req, res) => {
- 	res.render('register');
+ 	var message = req.flash('register') || '';
+ 	res.render('register', { message : message });
  });
 
  app.get('/forgotpassword', (req, res) => {
@@ -137,6 +120,22 @@ app.get('/team*', (req, res) => {
 // /*-------------------------*/
 // /*  Need to decide Router  */
 // /*-------------------------*/
+app.get('/', (req, res) => {
+	res.redirect('/user/home');
+});
+
+app.get('/logout', (req, res) => {
+	res.redirect('/user/logout');
+});
+
+
+app.get('/dash', (req, res) => {
+	res.redirect('/user/dash');
+});
+
+ app.get('/login', (req, res) => {
+ 	res.redirect('/user/login');
+ });
 
 app.get('/profile', (req, res) => {
 	res.redirect('/user/profile');
@@ -146,9 +145,31 @@ app.get('/admin', (req, res) => {
 	res.redirect('/admin/admin');
 });
 
-// app.get('/forum', (req, res) => {
-// 	res.render('forum');
-// });
+app.post('/adduser', (req, res) => {
+	var name = req.body.name;
+	var pass = req.body.pass;
+	var admin = false;
+	var pass=req.body.pass;
+	var cpass=req.body.cpass;
+	var email=req.body.email;
+	var fname=req.body.fname;
+	var lname=req.body.lname;
+	var question=req.body.question;
+	var answer=req.body.answer;
+	if (!name || !pass || !cpass||!email||!fname||!lname||!question||!answer) {
+		req.flash('register', 'Missing Input');
+		res.redirect('/register');
+	}
+	else if(pass!==cpass){
+		req.flash('register', 'Two passwords are not match');
+		res.redirect('/register');
+	}
+	else{
+		//Please set up database!!!!!!!!!!!!!
+		req.flash('register', 'Database is not set up yet!!!!!!!!!!!!!!!!');
+		res.redirect('/register');
+	}
+});
 
 app.use((req, res) => {
 	res.status(404);
@@ -158,7 +179,6 @@ app.use((req, res) => {
 /*----------------*/
 /*  Error Routes  */
 /*----------------*/
-
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500);
@@ -168,7 +188,6 @@ app.use((err, req, res, next) => {
 /*----------------*/
 /*  Start Server  */
 /*----------------*/
-
 app.listen(app.get('port'), () => {
 	console.log( 'Express started on http://localhost:' +
 			app.get('port') + '; press Ctrl-C to terminate.' );
