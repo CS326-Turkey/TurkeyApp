@@ -98,24 +98,33 @@ var users = db.collection('users');
 /*-------------------------*/
 
 app.get('/', (req, res) => {
-	res.render('home');
+	res.redirect('/user/home');
 });
 
-app.get('/login', (req, res) => {
-	res.redirect('/user/login');
+app.get('/logout', (req, res) => {
+	res.redirect('/user/logout');
 });
 
-app.get('/about', (req, res) => {
-	res.render('about');
+
+app.get('/dash', (req, res) => {
+	res.redirect('/user/dash');
 });
 
-app.get('/register', (req, res) => {
-	res.render('register');
-});
+ app.get('/login', (req, res) => {
+ 	res.redirect('/user/login');
+ });
 
-app.get('/forgotpassword', (req, res) => {
-	res.render('forgotpassword');
-});
+ app.get('/about', (req, res) => {
+ 	res.render('about');
+ });
+
+ app.get('/register', (req, res) => {
+ 	res.render('register');
+ });
+
+ app.get('/forgotpassword', (req, res) => {
+ 	res.render('forgotpassword');
+ });
 
 app.get('/team*', (req, res) => {
 	if(Object.keys(req.query).length === 0){
@@ -141,21 +150,21 @@ app.get('/team*', (req, res) => {
 	}
 });
 
-/*-------------------------*/
-/*  Need to decide Router  */
-/*-------------------------*/
+// /*-------------------------*/
+// /*  Need to decide Router  */
+// /*-------------------------*/
 
 app.get('/profile', (req, res) => {
-	res.render('profile');
+	res.redirect('/user/profile');
 });
 
 app.get('/admin', (req, res) => {
-	res.render('settings');
+	res.redirect('/admin/admin');
 });
 
-app.get('/forum', (req, res) => {
-	res.render('forum');
-});
+// app.get('/forum', (req, res) => {
+// 	res.render('forum');
+// });
 
 app.use((req, res) => {
 	res.status(404);
