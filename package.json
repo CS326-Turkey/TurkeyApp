@@ -13,6 +13,7 @@
     "mongodb": "^2.0.49",
     "mongojs": "^1.4.1",
     "mongojs-models": "^0.1.4",
+    "mongoose": "^4.2.7",
     "morgan": "^1.6.1"
   },
   "devDependencies": {},
