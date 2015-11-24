@@ -22,7 +22,13 @@ var morgan = require('morgan');
 
 // user database
 var db = require('./lib/database.js')
+////////////////////////////////////////////////////////////////////////
+//test database.js
+var u = require('./lib/database.js').User;
+db.getCollection({}, u);
 
+
+///////////////////////////////////////////////////////////////////////
 /*------------*/
 /* Create App */
 /*------------*/
