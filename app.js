@@ -21,11 +21,10 @@ var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 
 // user database
-var db = require('./lib/database.js')
+var db = require('./lib/database.js');
 ////////////////////////////////////////////////////////////////////////
 //test database.js
-var u = require('./lib/database.js').User;
-db.getCollection({}, require('./lib/database.js').User);
+
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -171,8 +170,8 @@ app.post('/adduser', (req, res) => {
 		res.redirect('/register');
 	}
 	else{
-		//Please set up database!!!!!!!!!!!!!
-		req.flash('register', 'Database is not set up yet!!!!!!!!!!!!!!!!');
+		db.addUser(name,fname,lname,pass,email,question,answer,admin);
+		req.flash('register', 'User added!');
 		res.redirect('/register');
 	}
 });
