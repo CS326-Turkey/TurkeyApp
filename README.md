@@ -10,6 +10,25 @@ Glean does this by integrating into your bank account and keeping track of the c
 node app.js
 ```
 ## Libraries
+
+``express-handlebars``
+  * https://github.com/ericf/express-handlebars.git
+  * used as the template engine for the project
+
+``body-parser``
+  * https://github.com/expressjs/body-parser.git
+  * used to retrieve the body of requests
+
+``express-session``
+  * https://github.com/expressjs/session.git
+  * used for establishing sessions with clients of the site
+
+``connect-flash``
+
+``cookie-parser``
+
+``morgan``
+
 *You should provide a list of the libraries your application uses (with links to their github pages) and a short explanation as to how they are being used.*
 ## Views
 *A summary of each of the views in your application and its purpose.*
