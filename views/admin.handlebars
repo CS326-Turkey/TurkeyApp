@@ -159,4 +159,36 @@
 	
 
 </div>
-
+</div>
+<table>
+  <tr>
+    <td>
+      User ID
+    </td>
+    <td>
+      Name
+    </td>
+    <td>
+      Password
+    </td>
+    <td>
+      Admin
+    </td>
+  </tr>
+  {{#each list}}
+    <tr>
+      <td>
+        {{id}}
+      </td>
+      <td>
+        {{name}}
+      </td>
+      <td>
+        {{pass}}
+      </td>
+      <td>
+        {{admin}}
+      </td>
+    </tr>
+  {{/each}}
+</table>

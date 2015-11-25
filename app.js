@@ -24,8 +24,19 @@ var morgan = require('morgan');
 var db = require('./lib/database.js');
 ////////////////////////////////////////////////////////////////////////
 //test database.js
-
-
+// db.getCollection({},db.User,function(err,users){
+// 	if(err){
+// 		console.log('error')
+// 	}
+// 	else{
+// 		var list={};
+// 		users.forEach(function(user){
+// 			list[user._id]=user;
+// 			//console.log(user);
+// 		});
+// console.log(list);
+// 	}
+// });
 
 ///////////////////////////////////////////////////////////////////////
 /*------------*/

@@ -44,9 +44,26 @@ router.get('/admin', (req, res) => {
   if (user && online[user.name]) {
     if((user.admin)){
     var message = req.flash('admin') || '';
-    res.render('admin', { title   : 'Admin',
+    var db = require('../lib/database.js');
+	db.getCollection({},db.User,function(err,users){
+	if(err){
+		console.log('error')
+	}
+	else{
+		var list={};
+		users.forEach(function(user){
+			list[user._id]=user;
+			// console.log(user);
+		});
+		console.log(list);
+		 res.render('admin', { title   : 'Admin',
                           message : message ,
-                      		name: user.name});
+                  
+                      		list: list});
+
+	}
+});
+   
 }
 else{
 	req.flash('userhome','You are not Admin')
