@@ -24,12 +24,17 @@ node app.js
   * used for establishing sessions with clients of the site
 
 ``connect-flash``
+  * https://github.com/jaredhanson/connect-flash.git
+  * used to send messages to views (i.e. when a user is redirected to a new page)
 
 ``cookie-parser``
+  * https://github.com/expressjs/cookie-parser.git
+  * needed for the use of sessions using express-sessions
 
 ``morgan``
+  * https://github.com/expressjs/morgan.git
+  * used for logging HTTP requests
 
-*You should provide a list of the libraries your application uses (with links to their github pages) and a short explanation as to how they are being used.*
 ## Views
 *A summary of each of the views in your application and its purpose.*
 ## Statefulness
