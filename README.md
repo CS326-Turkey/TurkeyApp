@@ -51,42 +51,45 @@ node app.js
 ``login``
   * Login screen for users seeking to sign-in to Glean. If users forget their password, a link to reset a user's password is accessible from the page.
 
-``forgotPassword``
- * ForgotPassword view is used to help user to find their passwords. When user forget their passwords, they can go to forgot password page and enter their infomation, and then the server find the password. 
+``check_user_info``
+  * first page of Forget Password screen. ask user to enter their existed user name and email address, and click on Next to get corresponding security code for 'forgotpassword' view use.
+
+``forgotpassword``
+  * Another page for Forget Password screen. Collect user's name and email information from 'check_user_info' view, and provide a security question for user to answer. Once the answer for the security question is approved from the database data, the password of the user would be  noticed on the screen.
 
 ``dashboard``
- * Dashboard view shows some Statistics of the user. 
- 
+ * Dashboard view shows some Statistics of the user.
+
 ``profile``
-  * Profile view shows the information of the user. User can also change their information. 
-  
+  * Profile view shows the information of the user. User can also change their information.
+
 ``register``
-  * Sign up a new account. 
-  
+  * Sign up a new account.
+
 ``about``
-  * Information about Glean. 
-  
+  * Information about Glean.
+
 ``admin``
-  * Shows information of all users and all transaction. Adminitrators can aslo search for some data. 
-  
+  * Shows information of all users and all transaction. Adminitrators can aslo search for some data.
+
 ``adminhome``
-  * Home page of Admin which is slightly different from the regular home page and user home page. 
-  
+  * Home page of Admin which is slightly different from the regular home page and user home page.
+
 ``userhome``
-  * Home page of the User which is slighty different from the regular home page and admin home page. 
-  
+  * Home page of the User which is slighty different from the regular home page and admin home page.
+
 ``404``
   * It shows when page is not found.
-  
+
 ``505``
   * It shows when there is an error.
-  
-``check_user_info``
-  * It confirms the information of the user for finding password. 
-  
+
+=======
+
+>>>>>>> edited Makefile for forgotpass word view
 ``team``
-  * Profiles of all team members. 
-  
+  * Profiles of all team members.
+
 *A summary of each of the views in your application and its purpose.*
 ## Statefulness
 *Provide a detailed writeup of how your application uses sessions to maintain statefulness. You must make references to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
