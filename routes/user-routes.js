@@ -215,4 +215,86 @@ router.get('/logout', function(req, res) {
   res.redirect('/user/home');
 });
 
+//======================================================
+router.get('/check_user_info', (req, res) =>{
+  var msg = req.flash('check_user_info') || '';
+  res.render('check_user_info', {message : msg});
+});
+
+router.get('/forgot', (req, res)=> {
+  var name = req.session.name;
+  var security = req.session.security;
+  if (!name || !security){
+    req.flash('check_user_info', 'Need to enter user_name and email information');
+    res.redirect('/user/check_user_info');
+  }else{
+    var msg = req.flash('forgot_password_msg') || '';
+    res.render('forgotpassword', {message: msg, security : security, n : name});
+  }
+});
+
+//===========================================
+router.post('/auth_forget', (req, res) =>{
+  var user = req.session.user;
+  if (user && online[user.name]) {
+    res.redirect('/user/home');
+  }
+  else {
+    var name = req.body.user_name;
+    var email = req.body.email;
+    if (!name || !email){
+      req.flash('check_user_info', 'Please fill out both field');
+      res.redirect('/user/check_user_info');
+    }else{
+      model.getSecurity(name, email, function(error, security){
+        if (error === undefined){
+          req.session.name = name;
+          req.session.security = security;
+          res.redirect('/user/forgot');
+        }else{
+          req.flash('check_user_info', error);
+          res.redirect('/user/check_user_info');
+
+        }
+      });
+    }
+  }
+});
+
+//check the security question
+router.post('/check_security', (req, res) => {
+  var user = req.session.user;
+  if (user){
+    //req.flash('hom', 'Please login again');
+    res.redirect('/user/home');
+  }else{
+    var security = req.session.security;
+    var answer = req.body.answer;
+    var name = req.session.name;
+    if (!answer){
+      req.flash('forgot_password_msg', 'Need to enter answer');
+      res.redirect('/user/forgot');
+    }else if (!security || !name){
+      req.flash('check_user_info', 'Need to re-enter your user name and email');
+      res.redirect('/user/check_user_info');
+    }else{
+      model.getAnswer(name, security, function(error, ans, pass){
+        if (error){
+          req.flash('forgot_password_msg', error);
+          res.redirect('/user/forgot');
+        }else{
+          if (ans === answer){
+            req.flash('login', 'Your pass word is ' + pass);
+            res.redirect('/user/login');
+          }else{
+            req.flash('forgot_password_msg', 'your security answer is not current ');
+            res.redirect('/user/forgot');
+          }
+        }
+      });
+    }
+  }
+});
+
+
 module.exports = router;
