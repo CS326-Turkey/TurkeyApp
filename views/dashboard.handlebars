@@ -16,41 +16,20 @@
 
 	
 	
-	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px">
-		<p><font size="6"><strong>Choose the organization that you would like to help:  </strong></font></p>
-		<p>	
-			<font size="4">Since today, I would like to donate my money to... </font>
-			<select>
-				<option value="unitedWay">United Way</option>
-				<option value="salvationArmy">Salvation Army</option>
-				<option value="feedingAmerica">Feeding America</option>
-				<option value="taskForceForGlobalHealth">Task Force for Global Health</option>
-			</select>
-		</p>
-	</div>
 	
 	
 	
 	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px">
 		<ul>
-			<li><strong>Website: </strong> Amazon<br/>
-				<strong>The thing(s) you bought:</strong> poptarts<br/> 
-				<strong>Original Price:</strong> $13.99<br/> 
-				<strong>Overcharged Price:</strong> $15.00<br/>
-				<strong>Extra Change: </strong> $1.01<br/>
-				<strong>Date:</strong> 11/19<br/>
-				<strong>Donate Extra Change To:</strong> Need to wait until 11:59pm today<br/>
+			 {{#each transaction}}
+			<li>
+				<strong>Website: </strong> Amazon<br/>
+				<strong>Extra Change: $</strong> {{this.total}}<br/>
+				<strong>Date:</strong> {{this.created_at.getFullYear()}}<br/>
+				<strong>Donate Extra Change To:</strong> {{this.charity_id}}<br/>
 				<br/>
 			</li>
-			<li><strong>Website: </strong> Ebay<br/>
-				<strong>The thing(s) you bought:</strong> Sunglasses<br/> 
-				<strong>Original Price:</strong> $8.99<br/> 
-				<strong>Overcharged Price:</strong> $10.00<br/>
-				<strong>Extra Change: </strong> $1.01<br/>
-				<strong>Date:</strong> 11/10<br/>
-				<strong>Donate Extra Change To:</strong> United Way<br/>
-				<br/>
-			</li>
+			 {{/each}}
 		</ul>	
 	</div>
 	

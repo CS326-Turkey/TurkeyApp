@@ -67,9 +67,21 @@ router.get('/dash', (req, res) => {
   if (user && online[user.name]) {
     if(!(user.admin)){
     var message = req.flash('dash') || '';
-    res.render('dashboard', { title   : 'Dashboard',
-                          message : message ,
-                      		name: user.name});
+        model.getUserTransactions(user.email,function(error, trac){
+            if (error){
+                console.log("ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRA");
+                req.flash('dash', error);
+                res.redirect('/user/home');
+            }else{
+                    console.log("TRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRA");
+                    req.flash('dash', 'Here is all your transactions');
+                    res.render('dashboard', { title   : 'Dashboard',
+                        message : message ,
+                        name: user.name,
+                        transaction: trac});
+                }
+            }
+        );
   }
   else{
 	 req.flash('adminhome','You are Admin')
@@ -344,7 +356,7 @@ router.post('/check_security', (req, res) => {
           res.redirect('/user/forgot');
         }else{
           if (ans === answer){
-            req.flash('login', 'Your pass word is ' + pass);
+            req.flash('login', 'Your password is ' + pass);
             res.redirect('/user/login');
           }else{
             req.flash('forgot_password_msg', 'your security answer is not current ');
