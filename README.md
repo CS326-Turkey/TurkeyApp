@@ -87,7 +87,7 @@ node app.js
 ``team``
   * Profiles of all team members. 
   
-*A summary of each of the views in your application and its purpose.*
+
 ## Statefulness
 
 There are three states: logged in as users, logged in as admin and non-logged in. When the user is non-logged in, he can only go to the regular homepage, team view, log in view, register view, forget password view and about view. When the user is logged in as a user, he can go to the views just mentioned plus dashboard view and profile view. When the user is logged in as an admin, he can go to the views for non-logged-in users plus admin view. 
@@ -98,10 +98,13 @@ There are two js files for routing. One is user-routes.js and the other is admin
 [admin-routes.js](routes/admin-routes.js) , 
 [app.js](app.js)
 
-*Provide a detailed writeup of how your application uses sessions to maintain statefulness. You must make references to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
+
 
 ## Persistence
 
 ![database diagram](/gleanDB.png)
 
+The diagram above is the schema of collections in database. The schemas set up and all the wrapped up functions for adding, finding, removing and updating date are in lib/database.js.
+
+[database.js](lib/database.js)
 *Provide a detailed writeup of how your application uses a database. You must include a figure that shows the important data sets that your database maintains. You must make reference to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
