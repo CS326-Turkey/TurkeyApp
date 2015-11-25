@@ -7,7 +7,7 @@
 		<a href ="/user/userhome" style="margin-left: 50px;margin-right:20px">Home</a>
 		<a href ="/team" style="margin-right:20px">Team</a>
 
-		<a href ="#" style="float:right; margin-right:20px">Log Out</a>
+		<a href ="/logout" style="float:right; margin-right:20px">Log Out</a>
 		
 
 	</div>
@@ -16,66 +16,22 @@
 	<a  href = "/user/userhome" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px;z-index:1000"></a>
 
 	<div style="margin-left:2%;margin-right:10%;margin-top:20px;padding:20px">
-		<p><strong><font size = "8">User Management/ Statistics</font></strong></p>
+		<p><strong><font size = "8">Admin Page</font></strong></p>
 	</div>
 	
 	
 	<div style="margin-left:5%;margin-right:10%;margin-top:20px;padding:20px;float:left" >
-		<p><font size="6"><strong>Scorecard</strong></font></p>
+		<p><font size="6"><strong>All Transactions</strong></font></p>
 		<div style="width:500px;height:400px;line-height:3em;overflow:auto;padding:5px;border: 1px solid black;;LINE-HEIGHT:20px"> 
 		<ul >
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
+		{{#each translist}}
+		<li>
+				<strong>Charity ID: </strong> {{charity_id}}<br/>
+				<strong>User ID: </strong> {{user_id}}<br/>
+				<strong>Donation: </strong>${{total}}<br><br>
 			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
-			<li>
-				<strong>Charity Name: </strong> United Way<br/>
-				<div style="margin-left:15%"><strong>Total donation: </strong>$10.99</div>
-			</li>
+		{{/each}}
+	
 		</ul>
 		</div>
 	</div>
@@ -96,42 +52,18 @@
 		<p><font size="6"><strong>User List</strong></font></p>
 		<div style="width:500px;height:400px;line-height:3em;overflow:auto;padding:5px;border: 1px solid black;;LINE-HEIGHT:20px"> 
 		<ul >
-			<li>
-				<strong>Account Name: </strong> chetinglin<br/>
+		{{#each list}}
+		<li>
+				<strong>Account Name: </strong> {{name}}<br/>
 				<div style="margin-left:20%">
-					<strong>First Name:</strong> Che-Ting<br/> 
-					<strong>Last Name:</strong> Lin
-					<strong>Email:</strong> chetinglin@umass.edu<br/>
-					<strong>Total Money Donated: </strong> $10000000.00<br/>
+					<strong>First Name:</strong> {{first}}<br/> 
+					<strong>Last Name:</strong> {{last}}</br>
+					<strong>Email:</strong> {{email}}<br/>
+					
 				</div>
 			</li>
-			<li>
-				<strong>Account Name: </strong> turkeygroup<br/>
-				<div style="margin-left:20%">
-					<strong>First Name:</strong> Group<br/> 
-					<strong>Last Name:</strong> Turkey<br/> 
-					<strong>Email:</strong> gTurkey@umass.edu<br/>
-					<strong>Total Money Donated: </strong> $0.99<br/>
-				</div>
-			</li>
-			<li>
-				<strong>Account Name: </strong> turkeycheting<br/>
-				<div style="margin-left:20%">
-					<strong>First Name:</strong> Group<br/> 
-					<strong>Last Name:</strong> Cheting<br/> 
-					<strong>Email:</strong> gCheting@umass.edu<br/>
-					<strong>Total Money Donated: </strong> $1.25<br/>
-				</div>
-			</li>
-			<li>
-				<strong>Account Name: </strong> lingroup<br/>
-				<div style="margin-left:20%">
-					<strong>First Name:</strong> Lin<br/> 
-					<strong>Last Name:</strong> Turkey<br/> 
-					<strong>Email:</strong> cTurkey@umass.edu<br/>
-					<strong>Total Money Donated: </strong> $0.02<br/>
-				</div>
-			</li>
+		{{/each}}
+
 		</ul>
 		</div>
 		
@@ -154,41 +86,3 @@
 	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px;">
 		<span>© 2015 Glean</span>
 	</div>
-
-	
-	
-
-</div>
-</div>
-<table>
-  <tr>
-    <td>
-      User ID
-    </td>
-    <td>
-      Name
-    </td>
-    <td>
-      Password
-    </td>
-    <td>
-      Admin
-    </td>
-  </tr>
-  {{#each list}}
-    <tr>
-      <td>
-        {{id}}
-      </td>
-      <td>
-        {{name}}
-      </td>
-      <td>
-        {{pass}}
-      </td>
-      <td>
-        {{admin}}
-      </td>
-    </tr>
-  {{/each}}
-</table>
