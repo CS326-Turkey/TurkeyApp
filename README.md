@@ -55,27 +55,38 @@ node app.js
  * ForgotPassword view is used to help user to find their passwords. When user forget their passwords, they can go to forgot password page and enter their infomation, and then the server find the password. 
 
 ``dashboard``
-* Dashboard view shows some Statistics of the user. 
+ * Dashboard view shows some Statistics of the user. 
+ 
 ``profile``
-* Profile view shows the information of the user. User can also change their information. 
+  * Profile view shows the information of the user. User can also change their information. 
+  
 ``register``
-* Sign up a new account. 
+  * Sign up a new account. 
+  
 ``about``
-* Information about Glean. 
+  * Information about Glean. 
+  
 ``admin``
-* Shows information of all users and all transaction. Adminitrators can aslo search for some data. 
+  * Shows information of all users and all transaction. Adminitrators can aslo search for some data. 
+  
 ``adminhome``
-* Home page of Admin which is slightly different from the regular home page and user home page. 
+  * Home page of Admin which is slightly different from the regular home page and user home page. 
+  
 ``userhome``
-* Home page of the User which is slighty different from the regular home page and admin home page. 
+  * Home page of the User which is slighty different from the regular home page and admin home page. 
+  
 ``404``
-* It shows when page is not found.
+  * It shows when page is not found.
+  
 ``505``
-* It shows when there is an error.
+  * It shows when there is an error.
+  
 ``check_user_info``
-* It confirms the information of the user for finding password. 
+  * It confirms the information of the user for finding password. 
+  
 ``team``
-* Profiles of all team members. 
+  * Profiles of all team members. 
+  
 *A summary of each of the views in your application and its purpose.*
 ## Statefulness
 *Provide a detailed writeup of how your application uses sessions to maintain statefulness. You must make references to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
