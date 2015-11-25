@@ -89,6 +89,9 @@ node app.js
   
 *A summary of each of the views in your application and its purpose.*
 ## Statefulness
+
+There are three states: logged in as users, logged in as admin and non-logged in. When the user is non-logged in, he can only go to the regular homepage, team view, log in view, register view, forget password view and about view. When the user is logged in as a user, he can go to the views just mentioned plus dashboard view and profile view. When the user is logged in as an admin, he can go to the views for non-logged-in users plus admin view. 
+There are two js files for routing. One is user-route.js and the other is admin-rount.js. They are in the directory called route. user-route.js handles the routes to the view only for users. admin-rount.js handles the routes to the view only for admin. 
 *Provide a detailed writeup of how your application uses sessions to maintain statefulness. You must make references to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
 
 ## Persistence
