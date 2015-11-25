@@ -5,15 +5,8 @@ Team Turkey presents Glean, a change to charity program that will help you feel 
 You make a purchase, Glean rounds up the cost, subtracts the actual purchase from the cost, and that difference goes to a charity of your choice!
 
 Glean does this by integrating into your bank account and keeping track of the charges you make. It’s easy, safe, and secure.
-
 ## How To Run
-
-Aquire the credentials.js file for database authentication from an admin. Place this file in the main directory.
-
-Run the following commands in bash:
-
 ```bash
-npm install
 node app.js
 ```
 ## Libraries
