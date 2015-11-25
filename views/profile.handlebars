@@ -28,34 +28,39 @@
   <li>Email: {{email}}</li>
 </ul>
 
-<form method="post" action="changename">
+<form method="post" action="/user/changepass">
   <h2>Setting</h2>
   <p>Change Password</p>
-  Old Password:  <br><input type="password" name="opass"><br>
-  New Password:  <br><input type="password" name="npass"><br>
-  Confirm Password:  <br><input type="password" name="cpass"><br>
+  Old Password:  <br><input type="password" name="oldpass"><br>
+  New Password:  <br><input type="password" name="newpass"><br>
+  Confirm Password:  <br><input type="password" name="confirmpass"><br>
   <button>Save Changes</button>
+  </form>
 
+<form method="post" action="/user/changefirstname">
   <p>Change Name </p>
-  New Name:  <br><input type="name" name="name"><br>
+  First Name:  <br><input type="text" name="name"><br>
   <button>Save Changes</button>
+  </form>
+  <form method="post" action="/user/changelastname">
+  Last Name:  <br><input type="text" name="name"><br>
+  <button>Save Changes</button>
+  </form>
 
+<form method="post" action="/user/changeemail">
   <p>Chane E-mail </p>
-  New e-mail address:  <br><input type="e-mail" name="ne"><br>
-  Re-enter new e-mail:  <br><input type="e-mail" name="rene"><br>
+  New e-mail address:  <br><input type="text" name="email"><br>
   <button>Save Changes</button>
+  </form>
 
+<form method="post" action="/user/addcard">
   <p>Add a Credit or debit Card </p>
-  Card number  <br><input type="card" name="cnumber"><br>
-  Name on card:  <br><input type="card" name="cholder"><br>
-  Expiration date(MM/YY):  <br><input type="text" name="edate"><br>
+  Card number  <br><input type="text" name="cardnumber"><br>
+  Name on card:  <br><input type="text" name="cardholder"><br>
+  Expiration date(MM/YY):  <br><input type="text" name="exp"><br>
+  Security Code:  <br><input type="text" name="sc"><br>
   <button>Add</button>
-
-  <p>Delete a Credit or debit Card </p>
-  Card number  <br><input type="card" name="cnumber"><br>
-  Name on card:  <br><input type="card" name="cholder"><br>
-  Expiration date(MM/YY):  <br><input type="text" name="edate"><br>
-  <button>Delete</button>
+  </form>
 
   <p>Links: </p>
   <p><a href="http://www.amazon.com/" target="_blank">Amazon</a></p>
@@ -68,5 +73,5 @@
   <p><a href="http://www.redcross.org/" target="_blank">American Red Cross</a></p>
   <p><a href="https://www.stjude.org/" target="_blank">St. Jude Children's Research Hospital</a></p>
 
-</form>
+
 </div>
