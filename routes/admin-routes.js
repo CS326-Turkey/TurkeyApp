@@ -55,12 +55,24 @@ router.get('/admin', (req, res) => {
 			list[user._id]=user;
 			// console.log(user);
 		});
-		console.log(list);
-		 res.render('admin', { title   : 'Admin',
+		//console.log(list);
+		db.getCollection({},db.Transaction,function(error,trans){
+			if(error){
+
+			}
+			else{
+				var translist={};
+				trans.forEach(function(tr){
+					translist[tr._id]=tr;
+				});
+				 res.render('admin', { title   : 'Admin',
                           message : message ,
-                  
+ 							translist:translist,
                       		list: list});
 
+			}
+		});
+		
 	}
 });
    
