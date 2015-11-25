@@ -69,11 +69,9 @@ router.get('/dash', (req, res) => {
     var message = req.flash('dash') || '';
         model.getUserTransactions(user.email,function(error, trac){
             if (error){
-                console.log("ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRA");
                 req.flash('dash', error);
                 res.redirect('/user/home');
             }else{
-                    console.log("TRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRA");
                     req.flash('dash', 'Here is all your transactions');
                     res.render('dashboard', { title   : 'Dashboard',
                         message : message ,

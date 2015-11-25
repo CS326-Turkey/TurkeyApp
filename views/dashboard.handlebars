@@ -16,17 +16,20 @@
 
 	
 	
+	<div style="margin-left:10%;margin-right:10%;margin-top:70px;padding:10px">
+		<p><font size="7"><strong>All the donations you have done</strong></font></p>
+	</div>
 	
 	
 	
-	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px">
+	<div style="margin-left:10%;margin-right:10%;margin-top:10px;padding:20px">
 		<ul>
 			 {{#each transaction}}
 			<li>
-				<strong>Website: </strong> Amazon<br/>
+				<strong>Website: </strong> {{this.website}}<br/>
 				<strong>Extra Change: $</strong> {{this.total}}<br/>
-				<strong>Date:</strong> {{this.created_at.getFullYear()}}<br/>
-				<strong>Donate Extra Change To:</strong> {{this.charity_id}}<br/>
+				<strong>Date:</strong> {{this.created_at_year}}-{{this.created_at_month}}-{{this.created_at_date}}<br/>
+				<strong>Donate Money To:</strong> {{this.charity_id}}<br/>
 				<br/>
 			</li>
 			 {{/each}}
