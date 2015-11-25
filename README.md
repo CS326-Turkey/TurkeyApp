@@ -1,12 +1,20 @@
 # TurkeyApp
+
 ## Overview
 Team Turkey presents Glean, a change to charity program that will help you feel that little goodness, those warm fuzzies for putting your money to good use.
 
 You make a purchase, Glean rounds up the cost, subtracts the actual purchase from the cost, and that difference goes to a charity of your choice!
 
 Glean does this by integrating into your bank account and keeping track of the charges you make. It’s easy, safe, and secure.
+
 ## How To Run
+
+Aquire the credentials.js file for database authentication from an admin. Place this file in the main directory.
+
+Run the following commands in bash:
+
 ```bash
+npm install
 node app.js
 ```
 ## Libraries
@@ -38,8 +46,10 @@ node app.js
 ## Views
 
 ``home``
+  * Main landing page for users not logged into Glean. This page is meant mostly for promotional purposes to attract users to the service. Currently, there is a description of the service, and navigation for users to access an about page and a page to learn about the team.
 
 ``login``
+  * Login screen for users seeking to sign-in to Glean. If users forget their password, a link to reset a user's password is accessible from the page.
 
 ``forgotPassword``
 
