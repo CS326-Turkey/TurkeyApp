@@ -67,7 +67,7 @@ router.get('/dash', (req, res) => {
   if (user && online[user.name]) {
     if(!(user.admin)){
     var message = req.flash('dash') || '';
-        model.getUserTransactions(user.email,function(error, trac){
+        model.getUserTransactions(user._id,function(error, trac){
             if (error){
                 req.flash('dash', error);
                 res.redirect('/user/home');
