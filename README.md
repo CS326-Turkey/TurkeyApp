@@ -107,4 +107,4 @@ There are two js files for routing. One is user-routes.js and the other is admin
 The diagram above is the schema of collections in database. The schemas set up and all the wrapped up functions for adding, finding, removing and updating date are in lib/database.js.
 
 [database.js](lib/database.js)
-*Provide a detailed writeup of how your application uses a database. You must include a figure that shows the important data sets that your database maintains. You must make reference to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
+
