@@ -1,55 +1,68 @@
-<div style="border: solid 1px; padding: 8px;position:fixed; width:100%;background-color:white">
-  <a href ="/" style="margin-left: 50px;margin-right:20px">Home</a>
-  <a href ="/team" style="margin-right:20px">Team</a>
-  <a href ="/about" >About</a>
 
-  <a href ="/admin" style="float:right; margin-right:20px">Admin</a>
-  <a href ="/profile" style="float:right; margin-right:20px">Profile</a>
-	<a href ="/logout" style="float:right; margin-right:20px">Log out</a>
 
-</div>
-<a href = "/" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px"></a>
+
+  <div style="border: solid 1px; padding: 8px;position:fixed; width:100%;background-color:white;z-index:999">
+
+    <a href ="/" style="margin-left: 50px;margin-right:20px">Home</a>
+    <a href ="/team" style="margin-right:20px">Team</a>
+    <a href ="/about" style="margin-right:20px">About</a>
+
+    <a href = "/dash" style="margin-right:20px">DashBoard</a>
+    <a href = "/profile" style="margin-right:20px">Profile</a>
+
+    <a href ="/logout" style="float:right; margin-right:20px">Log out</a>
+    
+
+  </div>
+  <a  href = "/" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px;z-index:1000"></a>
 
 <div style="padding:50px">
 <h1>{{title}}</h1>
-<p>Account Management{{title}}</p>
+<p>Account Management - {{name}}</p>
 <div>{{message}}</div><br>
+<p>Your information: </p>
+<ul>
+  <li>User Name: {{name}}</li>
+  <li>First Name: {{first}}</li>
+  <li>Last Name: {{last}}</li>
+  <li>Email: {{email}}</li>
+</ul>
 
-<form method="post" action="/user/auth">
-  <h2>{{title}}</h2>
-  <p>Change Password {{title}}</p>
+<form method="post" action="changename">
+  <h2>Setting</h2>
+  <p>Change Password</p>
   Old Password:  <br><input type="password" name="opass"><br>
   New Password:  <br><input type="password" name="npass"><br>
   Confirm Password:  <br><input type="password" name="cpass"><br>
   <button>Save Changes</button>
 
-  <p>Change Name {{title}}</p>
+  <p>Change Name </p>
   New Name:  <br><input type="name" name="name"><br>
   <button>Save Changes</button>
 
-  <p>Chane E-mail {{title}}</p>
+  <p>Chane E-mail </p>
   New e-mail address:  <br><input type="e-mail" name="ne"><br>
   Re-enter new e-mail:  <br><input type="e-mail" name="rene"><br>
   <button>Save Changes</button>
 
-  <p>Add a Credit or debit Card {{title}}</p>
+  <p>Add a Credit or debit Card </p>
   Card number  <br><input type="card" name="cnumber"><br>
   Name on card:  <br><input type="card" name="cholder"><br>
-  Expiration date(MM/YYYY):  <br><input type="text" name="edate"><br>
+  Expiration date(MM/YY):  <br><input type="text" name="edate"><br>
   <button>Add</button>
 
-  <p>Delete a Credit or debit Card {{title}}</p>
+  <p>Delete a Credit or debit Card </p>
   Card number  <br><input type="card" name="cnumber"><br>
   Name on card:  <br><input type="card" name="cholder"><br>
-  Expiration date(MM/YYYY):  <br><input type="text" name="edate"><br>
+  Expiration date(MM/YY):  <br><input type="text" name="edate"><br>
   <button>Delete</button>
 
-  <p>Links: {{title}}</p>
+  <p>Links: </p>
   <p><a href="http://www.amazon.com/" target="_blank">Amazon</a></p>
   <p><a href="http://www.ebay.com/" target="_blank">ebay</a></p>
   <p><a href="http://www.newegg.com/" target="_blank">newegg</a></p>
 
-  <p>Charity Programs: {{title}}</p>
+  <p>Charity Programs: </p>
   <p><a href="http://www.unicef.org/" target="_blank">Unicef</a></p>
   <p><a href="http://www.savethechildren.org/site/c.8rKLIXMGIpI4E/b.6115947/k.B143/Official_USA_Site.htm" target="_blank">Save the Children</a></p>
   <p><a href="http://www.redcross.org/" target="_blank">American Red Cross</a></p>

@@ -95,7 +95,10 @@ router.get('/profile', (req, res) => {
     var message = req.flash('profile') || '';
     res.render('profile', { title   : 'Profile',
                           message : message ,
-                      		name: user.name});
+                      		name: user.name,
+                          first: user.first,
+                          last: user.last,
+                          email:user.email});
   }
   else{
 	 req.flash('adminhome','You are Admin')
