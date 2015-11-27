@@ -42,6 +42,7 @@ router.get('/userhome', (req, res) => {
     if(!(user.admin)){
     var message = req.flash('userhome') || '';
     res.render('userhome', { title   : 'User Home',
+                          layout: 'usermain',
                           message : message ,
                       		name: user.name});
   }
@@ -73,7 +74,7 @@ router.get('/dash', (req, res) => {
                 res.redirect('/user/home');
             }else{
                     req.flash('dash', 'Here is all your transactions');
-                    res.render('dashboard', { title   : 'Dashboard',
+                    res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
                         message : message ,
                         name: user.name,
                         transaction: trac});
@@ -103,7 +104,7 @@ router.get('/profile', (req, res) => {
   if (user && online[user.name]) {
     if(!(user.admin)){
     var message = req.flash('profile') || '';
-    res.render('profile', { title   : 'Profile',
+    res.render('profile', { title   : 'Profile', layout:'usermain',
                           message : message ,
                       		name: user.name,
                           first: user.first,
@@ -201,13 +202,14 @@ router.post('/addcard', (req, res) =>{
     var cardholder = req.body.cardholder;
     var exp = req.body.exp;
     var sc = req.body.sc; 
-    if(!cardnumber||!cardholder||!!exp||!sc){
+    if(!cardnumber||!cardholder||!exp||!sc){
       console.log("missing input");
       req.flash('profile','Missing input!!!');
     res.redirect('/user/profile');
     }
     else{
-      model.addCard(user.id, cardholder,exp,sc, cardnumber);
+      console.log('user id is: '+user._id);
+      model.addCard(user._id, cardholder,exp,sc, cardnumber);
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
     }
@@ -254,7 +256,7 @@ router.post('/auth', (req, res) => {
 
           // Pass a message to main:
           req.flash('userhome', '');
-          req.flash('userhome', 'Authentication successful');
+          req.flash('userhome', 'Authentication successful!');
           res.redirect('/user/userhome');
         }
       });

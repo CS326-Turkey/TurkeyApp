@@ -24,14 +24,44 @@
 		<p><font size="6"><strong>All Transactions</strong></font></p>
 		<div style="width:500px;height:400px;line-height:3em;overflow:auto;padding:5px;border: 1px solid black;;LINE-HEIGHT:20px"> 
 		<ul >
-		{{#each translist}}
-		<li>
+		{{#if findcharity}}
+
+			
+			{{#each fff}}
+			<li>
+			<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
 				<strong>Charity ID: </strong> {{charity_id}}<br/>
 				<strong>User ID: </strong> {{user_id}}<br/>
+					<strong>Website: </strong> {{website}}<br/>
+					<strong>Donation: </strong>${{total}}<br><br>
+				
+			</li>
+			{{/each}}
+		{{else if finduser}}
+			{{#each hhh}}
+			<li>
+			<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
+				<strong>Charity ID: </strong> {{charity_id}}<br/>
+				<strong>User ID: </strong> {{user_id}}<br/>
+				<strong>Website: </strong> {{website}}<br/>
 				<strong>Donation: </strong>${{total}}<br><br>
+				
+			</li>
+			{{/each}}
+
+
+		{{else}}
+		{{#each translist}}
+		<li>
+		<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
+				<strong>Charity ID: </strong> {{charity_id}}<br/>
+				<strong>User ID: </strong> {{user_id}}<br/>
+				<strong>Website: </strong> {{website}}<br/>
+				<strong>Donation: </strong>${{total}}<br><br>
+				
 			</li>
 		{{/each}}
-	
+		{{/if}}
 		</ul>
 		</div>
 	</div>
@@ -39,10 +69,16 @@
 	
 	
 	<div style="margin-left:5%;margin-right:10%;margin-top:100px;padding:20px">
-		<h4>Search in detail</h4>
-		<form method="post" action="/admin/user">
-			Charity Name: <input type="text" name="charity"> <br>
+		<span style="color:red">{{message}}</span>
+		<h4>Search for Transactions</h4>
+		<form method="post" action="/admin/findcharity">
+		Charity Name: <input type="text" name="charity"> <br>
 		<button>Search Charity</button>
+		</form><br>
+		<form method="post" action="/admin/finduser">
+			User Name: <input type="text" name="username"> <br>
+		
+		<button>Search User</button>
 		</form>
 	</div>
 	
@@ -58,7 +94,7 @@
 				<div style="margin-left:20%">
 					<strong>First Name:</strong> {{first}}<br/> 
 					<strong>Last Name:</strong> {{last}}</br>
-					<strong>Email:</strong> {{email}}<br/>
+					<strong>Email:</strong> {{email}}<br/><br>
 					
 				</div>
 			</li>
@@ -70,19 +106,7 @@
 
 	</div>
 	
-	<div style="margin-left:5%;margin-right:10%;margin-top:100px;padding:20px">
-		<h4>Search in detail</h4>
-		<form method="post" action="/admin/user">
-			User Name: <input type="text" name="username"> <br>
-			First Name:  <input type="text" name="fname"> <br>
-			Last Name:  <input type="text" name="lname"> <br>
-			Email:  <input type="text" name="email"> <br>
-		<button>Search User(s)</button>
-		</form>
-	</div>
+
 
 	<div style="clear:both"></div>
 	
-	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px;">
-		<span>© 2015 Glean</span>
-	</div>

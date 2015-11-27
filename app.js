@@ -97,7 +97,7 @@ var team = require('./lib/team.js');
 /* (non-users & non-admin) */
 /*-------------------------*/
  app.get('/about', (req, res) => {
- 	res.render('about');
+ 	res.render('about',{layout:false});
  });
 
  app.get('/register', (req, res) => {
@@ -123,7 +123,7 @@ app.get('/team*', (req, res) => {
 		var result = team.one(req.query.user);
 	}
 	if(result.count!==0){
-		res.render('team', {
+		res.render('team', {layout:false,
 			members: result.data,
 		});
 	}
@@ -189,7 +189,7 @@ app.post('/adduser', (req, res) => {
 
 app.use((req, res) => {
 	res.status(404);
-	res.render('404');
+	res.render('404',{layout:false});
 });
 
 /*----------------*/
@@ -198,7 +198,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500);
-	res.render('500');
+	res.render('500',{layout:false});
 });
 
 /*----------------*/

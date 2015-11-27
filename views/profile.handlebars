@@ -1,25 +1,11 @@
 
 
 
-  <div style="border: solid 1px; padding: 8px;position:fixed; width:100%;background-color:white;z-index:999">
-
-    <a href ="/" style="margin-left: 50px;margin-right:20px">Home</a>
-    <a href ="/team" style="margin-right:20px">Team</a>
-    <a href ="/about" style="margin-right:20px">About</a>
-
-    <a href = "/dash" style="margin-right:20px">DashBoard</a>
-    <a href = "/profile" style="margin-right:20px">Profile</a>
-
-    <a href ="/logout" style="float:right; margin-right:20px">Log out</a>
-    
-
-  </div>
-  <a  href = "/" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px;z-index:1000"></a>
 
 <div style="padding:50px">
 <h1>{{title}}</h1>
 <p>Account Management - {{name}}</p>
-<div>{{message}}</div><br>
+
 <p>Your information: </p>
 <ul>
   <li>User Name: {{name}}</li>
@@ -28,17 +14,22 @@
   <li>Email: {{email}}</li>
 </ul>
 
+<div>
+<h2>Setting</h2>
+<p style="color:red">{{message}}</p>
+<div class="inlinebox">
 <form method="post" action="/user/changepass">
-  <h2>Setting</h2>
-  <p>Change Password</p>
+  
+  <h4>Change Password</h4>
   Old Password:  <br><input type="password" name="oldpass"><br>
   New Password:  <br><input type="password" name="newpass"><br>
   Confirm Password:  <br><input type="password" name="confirmpass"><br>
   <button>Save Changes</button>
   </form>
-
+</div>
+<div class="inlinebox">
 <form method="post" action="/user/changefirstname">
-  <p>Change Name </p>
+  <h4>Change Name </h4>
   First Name:  <br><input type="text" name="name"><br>
   <button>Save Changes</button>
   </form>
@@ -46,23 +37,27 @@
   Last Name:  <br><input type="text" name="name"><br>
   <button>Save Changes</button>
   </form>
-
+  </div>
+<div class="inlinebox">
 <form method="post" action="/user/changeemail">
-  <p>Chane E-mail </p>
+  <h4>Chane E-mail </h4>
   New e-mail address:  <br><input type="text" name="email"><br>
   <button>Save Changes</button>
   </form>
+</div>
 
+<div class="inlinebox">
 <form method="post" action="/user/addcard">
-  <p>Add a Credit or debit Card </p>
+  <h4>Add a Credit/Debit Card </h4>
   Card number  <br><input type="text" name="cardnumber"><br>
   Name on card:  <br><input type="text" name="cardholder"><br>
   Expiration date(MM/YY):  <br><input type="text" name="exp"><br>
   Security Code:  <br><input type="text" name="sc"><br>
   <button>Add</button>
   </form>
-
-  <p>Links: </p>
+  </div>
+</div>
+  <p style="clear:left;padding-top:150px">Links: </p>
   <p><a href="http://www.amazon.com/" target="_blank">Amazon</a></p>
   <p><a href="http://www.ebay.com/" target="_blank">ebay</a></p>
   <p><a href="http://www.newegg.com/" target="_blank">newegg</a></p>
@@ -75,3 +70,11 @@
 
 
 </div>
+<style>
+.inlinebox{
+  float:left;
+  width: 200px;
+  height: 100px;
+  margin: 20px;
+}
+</style>
