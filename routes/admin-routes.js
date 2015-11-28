@@ -25,7 +25,7 @@ router.get('/adminhome', (req, res) => {
 		else{
 			if(!(user.admin)){
 				req.flash('userhome', 'You are not admin');
-				res.redirect('/user/userhome');
+				res.redirect('/user/home');
 			}
 			else{
 				var message = req.flash('adminhome') || '';
@@ -45,7 +45,7 @@ router.get('/admin', (req, res) => {
   if (user && online[user.name]) {
     if((user.admin)){
     var message = req.flash('admin') || '';
-    
+
 	db.getCollection({},db.User,function(err,users){
 	if(err){
 		console.log('error')
@@ -73,14 +73,14 @@ router.get('/admin', (req, res) => {
                       		list: list});
 			}
 		});
-		
+
 	}
 });
-   
+
 }
 else{
 	req.flash('userhome','You are not Admin');
-	res.redirect('/user/userhome');
+	res.redirect('/user/home');
 }
   }
   else {
@@ -92,7 +92,7 @@ else{
 
 // NO USE FOR NOW
 router.get('/list', (req, res) => {
-	
+
 	var user = req.session.user;
 	if(!user){
 		req.flash('login', 'Not logged in');
@@ -133,7 +133,7 @@ router.get('/list', (req, res) => {
 router.post('/findcharity', (req, res) =>{
     var user = req.session.user;
     var charity = req.body.charity;
-  
+
     if(!charity){
       console.log("missing input");
       //req.flash('profile','Missing input!!!');
@@ -144,7 +144,7 @@ router.post('/findcharity', (req, res) =>{
 if (user && online[user.name]) {
     if((user.admin)){
     var message = req.flash('admin') || '';
-    
+
 	db.getCollection({},db.User,function(err,users){
 	if(err){
 		console.log('error')
@@ -187,7 +187,7 @@ db.getObject({name:charity},db.Charity, function(error, c){
     				}
 
 
-						
+
     			});
     		}
     		else{
@@ -195,8 +195,8 @@ db.getObject({name:charity},db.Charity, function(error, c){
     			req.flash('admin','Found Nothing about "'+ charity+'"');
 	res.redirect('/admin/admin');
     		}
-    			
-    			
+
+
     		}
     	});
 				/////////////////////////////
@@ -207,14 +207,14 @@ db.getObject({name:charity},db.Charity, function(error, c){
 				 ////////////////////////////////////
 			}
 		});
-		
+
 	}
 });
-   
+
 }
 else{
 	req.flash('userhome','You are not Admin')
-	res.redirect('/user/userhome');
+	res.redirect('/user/home');
 }
   }
   else {
@@ -225,16 +225,16 @@ else{
 
 
       ////////////
-    	
-   
+
+
     }
-    
+
 });
 
 router.post('/finduser', (req, res) =>{
     var user = req.session.user;
     var username = req.body.username;
-  
+
     if(!username){
       console.log("missing input");
       //req.flash('profile','Missing input!!!');
@@ -245,7 +245,7 @@ router.post('/finduser', (req, res) =>{
 if (user && online[user.name]) {
     if((user.admin)){
     var message = req.flash('admin') || '';
-    
+
 	db.getCollection({},db.User,function(err,users){
 	if(err){
 		console.log('error')
@@ -288,7 +288,7 @@ db.getObject({name:username},db.User, function(error, u){
     				}
 
 
-						
+
     			});
     		}
     		else{
@@ -296,21 +296,21 @@ db.getObject({name:username},db.User, function(error, u){
     			req.flash('admin','Found Nothing about "'+ username+'"');
 	res.redirect('/admin/admin');
     		}
-    			
-    			
+
+
     		}
     	});
 
 			}
 		});
-		
+
 	}
 });
-   
+
 }
 else{
 	req.flash('userhome','You are not Admin')
-	res.redirect('/user/userhome');
+	res.redirect('/user/home');
 }
   }
   else {
@@ -320,7 +320,7 @@ else{
   }
 
     }
-    
+
 });
 
 module.exports = router;
