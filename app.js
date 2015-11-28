@@ -82,6 +82,9 @@ app.use(flash());
 // using 'combined' gives you Apache-style logging support.
 app.use(morgan('combined'));
 
+// A list of users who are online:
+var online = require('./lib/online').online;
+
 /*-------------*/
 /* Route Setup */
 /*-------------*/
@@ -137,7 +140,28 @@ app.get('/team*', (req, res) => {
 // /*  Need to decide Router  */
 // /*-------------------------*/
 app.get('/', (req, res) => {
-	res.redirect('/user/home');
+
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user.name]) {
+    if(!(user.admin)){
+    var message = req.flash('userhome') || '';
+    res.render('userhome', { title   : 'User Home',
+                          layout: 'usermain',
+                          message : message ,
+                      		name: user.name});
+  }
+  else { // send to admin homepage if admin
+	 req.flash('adminhome','You are Admin')
+	 res.redirect('/admin/adminhome');
+  }
+    }
+    else {
+      // send to public homepage
+      res.render('home', {});
+    }
+
 });
 
 app.get('/logout', (req, res) => {
