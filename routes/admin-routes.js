@@ -11,7 +11,7 @@ var db = require('../lib/database.js');
 //particular routes from the main application.
 var router = express.Router();
 
-router.get('/adminhome', (req, res) => {
+router.get('/home', (req, res) => {
 	var user = req.session.user;
 	if(!user){
 		req.flash('home', 'You are not logged in');

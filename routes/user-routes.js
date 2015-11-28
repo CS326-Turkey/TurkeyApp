@@ -48,7 +48,7 @@ router.get('/home', (req, res) => {
   }
   else{
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
@@ -84,7 +84,7 @@ router.get('/dash', (req, res) => {
   }
   else{
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
@@ -113,7 +113,7 @@ router.get('/profile', (req, res) => {
   }
   else{
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
@@ -228,7 +228,7 @@ router.post('/auth', (req, res) => {
     	res.redirect('/user/home');
     }
     else{
-      res.redirect('/admin/adminhome');
+      res.redirect('/admin/home');
     }
   }
   else {

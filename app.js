@@ -154,7 +154,7 @@ app.get('/', (req, res) => {
   }
   else { // send to admin homepage if admin
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
