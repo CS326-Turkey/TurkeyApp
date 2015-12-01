@@ -136,6 +136,16 @@ There are two JavaScript files for routing. One is `user-routes.js` and the othe
 
 ![database diagram](/gleanDB.png)
 
-The diagram above is the schema of collections in database. The schemas set up and all the wrapped up functions for adding, finding, removing and updating date are in lib/database.js.
+The diagram above is the schema of collections in the database. The documents are created within the `/lib/database.js` file and are wrapped up with functions for adding, finding, removing and updating these documents. `mongoose` is utilized to better facilitate modeling.
+
+The documents are listed below:
+
+`User` : user information / credentials for login
+
+`Credit` : credit card information to be used when making purchases
+
+`Transaction` : transaction made by a user
+
+`Charity` : charity identifier
 
 [database.js](lib/database.js)
