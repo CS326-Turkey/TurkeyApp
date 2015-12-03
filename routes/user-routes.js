@@ -33,7 +33,7 @@ router.get('/login', (req, res) => {
 
 //=================================================================
 
-router.get('/userhome', (req, res) => {
+router.get('/home', (req, res) => {
   // Grab the session if the user is logged in.
   var user = req.session.user;
 
@@ -48,7 +48,7 @@ router.get('/userhome', (req, res) => {
   }
   else{
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
@@ -72,7 +72,7 @@ router.get('/dash', (req, res) => {
             if (error){
                 req.flash('dash', error);
                 res.redirect('/user/home');
-            }else{
+            } else{
                     req.flash('dash', 'Here is all your transactions');
                     res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
                         message : message ,
@@ -84,7 +84,7 @@ router.get('/dash', (req, res) => {
   }
   else{
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
@@ -113,7 +113,7 @@ router.get('/profile', (req, res) => {
   }
   else{
 	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+	 res.redirect('/admin/home');
   }
     }
     else {
@@ -123,7 +123,7 @@ router.get('/profile', (req, res) => {
     }
 });
 
-//=================================================================
+/*//=================================================================
 
 router.get('/home', (req, res) => {
 	var user = req.session.user;
@@ -152,7 +152,7 @@ router.get('/home', (req, res) => {
 		}
 	}
 
-});
+});*/
 
 //================================================================
 router.post('/changeemail', (req, res) =>{
@@ -194,14 +194,14 @@ router.post('/changepass', (req, res) =>{
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
     }
-   
+
 });
 router.post('/addcard', (req, res) =>{
     var user = req.session.user;
     var cardnumber = req.body.cardnumber;
     var cardholder = req.body.cardholder;
     var exp = req.body.exp;
-    var sc = req.body.sc; 
+    var sc = req.body.sc;
     if(!cardnumber||!cardholder||!exp||!sc){
       console.log("missing input");
       req.flash('profile','Missing input!!!');
@@ -213,7 +213,7 @@ router.post('/addcard', (req, res) =>{
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
     }
-    
+
 });
 
 //================================================================
@@ -225,10 +225,10 @@ router.post('/auth', (req, res) => {
   // Redirect to main if session and user is online:
   if (user && online[user]) {
   	if(!(user.admin)){
-    	res.redirect('/user/userhome');
+    	res.redirect('/user/home');
     }
     else{
-      res.redirect('/admin/adminhome');
+      res.redirect('/admin/home');
     }
   }
   else {
@@ -257,7 +257,7 @@ router.post('/auth', (req, res) => {
           // Pass a message to main:
           req.flash('userhome', '');
           req.flash('userhome', 'Authentication successful!');
-          res.redirect('/user/userhome');
+          res.redirect('/user/home');
         }
       });
     }

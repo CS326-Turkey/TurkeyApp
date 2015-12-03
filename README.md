@@ -67,13 +67,13 @@ node app.js
   * Information about Glean.
 
 ``admin``
-  * Shows information of all users and all transaction. Adminitrators can aslo search for some data.
+  * Shows information of all users and all transaction. Administrators can also search for some data.
 
 ``adminhome``
   * Home page of Admin which is slightly different from the regular home page and user home page.
 
 ``userhome``
-  * Home page of the User which is slighty different from the regular home page and admin home page.
+  * Home page of the User which is slightly different from the regular home page and admin home page.
 
 ``404``
   * It shows when page is not found.
@@ -88,10 +88,42 @@ node app.js
   * Profiles of all team members.
 
 
-## Statefulness
+## Session States
 
-There are three states: logged in as users, logged in as admin and non-logged in. When the user is non-logged in, he can only go to the regular homepage, team view, log in view, register view, forget password view and about view. When the user is logged in as a user, he can go to the views just mentioned plus dashboard view and profile view. When the user is logged in as an admin, he can go to the views for non-logged-in users plus admin view.
-There are two js files for routing. One is user-routes.js and the other is admin-routes.js. They are in the directory called routes. user-route.js handles the routes to the view only for users. admin-rount.js handles the routes to the view only for admin. There are also some route handling in app.js
+There are three states: logged in as users, logged in as admin and not-logged in.
+
+When the user is non-logged in, they may only access the following views:
+
+  `home`
+  `team`
+  `login`
+  `register`
+  `forgetPassword`
+  `about`
+
+When the user is logged in as a user, they may only access the following views:
+
+  `userhome`
+  `dashboard`
+  `profile`
+  `team`
+  `login`
+  `register`
+  `forgetPassword`
+  `about`
+
+When the user is logged in as an admin, they may only access the following views:
+
+  `admin`
+  `adminhome`
+  `home`
+  `team`
+  `login`
+  `register`
+  `forgetPassword`
+  `about`
+
+There are two JavaScript files for routing. One is `user-routes.js` and the other is `admin-routes.js`. They are in the directory called `routes`. `user-routes.js` handles the routes to the views only for users. `admin-routes.js` handles the routes to the views only for admin. There are also some route handling in `app.js` for general routes accessible to non-users.
 
 
 [user-routes.js](routes/user-routes.js) ,
@@ -104,6 +136,16 @@ There are two js files for routing. One is user-routes.js and the other is admin
 
 ![database diagram](/gleanDB.png)
 
-The diagram above is the schema of collections in database. The schemas set up and all the wrapped up functions for adding, finding, removing and updating date are in lib/database.js.
+The diagram above is the schema of collections in the database. The documents are created within the `/lib/database.js` file and are wrapped up with functions for adding, finding, removing and updating these documents. `mongoose` is utilized to better facilitate modeling.
+
+The documents are listed below:
+
+`User` : user information / credentials for login
+
+`Credit` : credit card information to be used when making purchases
+
+`Transaction` : transaction made by a user
+
+`Charity` : charity identifier
 
 [database.js](lib/database.js)
