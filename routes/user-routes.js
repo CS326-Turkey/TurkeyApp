@@ -284,7 +284,7 @@ router.get('/logout', function(req, res) {
   }
 
   // Redirect to login regardless.
-  res.redirect('/user/home');
+  res.redirect('/');
 });
 
 //======================================================
