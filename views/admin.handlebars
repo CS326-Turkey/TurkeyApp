@@ -1,28 +1,63 @@
 
 	
 <div>
-	
-	<div style="border: solid 1px; padding: 8px;position:fixed;top:0px; width:100%;background-color:white;z-index:999">
-
-		<a href ="/user/userhome" style="margin-left: 50px;margin-right:20px">Home</a>
-		<a href ="/team" style="margin-right:20px">Team</a>
-
-		<a href ="/logout" style="float:right; margin-right:20px">Log Out</a>
-		
-
+	<div style="margin-left:2%;margin-right:10%;padding:10px">
+		<p><strong><font size = "7">Admin Page</font></strong></p>
 	</div>
 	
-	
-	<a  href = "/user/userhome" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px;z-index:1000"></a>
+	<div style="margin-left:5%;margin-right:5%;padding:5px;" >
+		<p style='color:#00802d'><font size="6"><strong>All Transactions</strong></font></p>
+		<div style="height:400px;line-height:3em;overflow:auto;padding:5px;border-radius:10px;border: 2px solid #009933;LINE-HEIGHT:20px"> 
 
-	<div style="margin-left:2%;margin-right:10%;margin-top:20px;padding:20px">
-		<p><strong><font size = "8">Admin Page</font></strong></p>
-	</div>
-	
-	
-	<div style="margin-left:5%;margin-right:10%;margin-top:20px;padding:20px;float:left" >
-		<p><font size="6"><strong>All Transactions</strong></font></p>
-		<div style="width:500px;height:400px;line-height:3em;overflow:auto;padding:5px;border: 1px solid black;;LINE-HEIGHT:20px"> 
+<div class="container" style='width:100%'>      
+  <table class="table table-hover ">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>User ID</th>
+        <th>Charity ID</th>
+        <th>Donation</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if findcharity}}
+
+			
+			{{#each fff}}
+
+      <tr>
+        <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+        <td>{{user_id}}</td>
+        <td>{{charity_id}}</td>
+        <td>${{total}}</td>
+      </tr>
+			{{/each}}
+		{{else if finduser}}
+			{{#each hhh}}
+
+      <tr>
+        <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+        <td>{{user_id}}</td>
+        <td>{{charity_id}}</td>
+        <td>${{total}}</td>
+      </tr>
+	{{/each}}
+
+
+		{{else}}
+		{{#each translist}}
+		  <tr>
+        <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+        <td>{{user_id}}</td>
+        <td>{{charity_id}}</td>
+        <td>${{total}}</td>
+      </tr>
+      {{/each}}
+		{{/if}}
+    </tbody>
+  </table>
+</div>
+		<!--
 		<ul >
 		{{#if findcharity}}
 
@@ -63,31 +98,56 @@
 		{{/each}}
 		{{/if}}
 		</ul>
+		-->
 		</div>
 	</div>
 	
 	
 	
-	<div style="margin-left:5%;margin-right:10%;margin-top:100px;padding:20px">
+	<div style="margin-left:5%;margin-right:10%;padding:5px;">
 		<span style="color:red">{{message}}</span>
 		<h4>Search for Transactions</h4>
-		<form method="post" action="/admin/findcharity">
-		Charity Name: <input type="text" name="charity"> <br>
-		<button>Search Charity</button>
+		<form class="form-inline" method="post" action="/admin/findcharity"><div class="form-group">
+		<input class="form-control" type="text" name="charity" placeholder='Charity Name'> <br></div>
+		<button class="btn btn-primary">Search Charity</button>
 		</form><br>
-		<form method="post" action="/admin/finduser">
-			User Name: <input type="text" name="username"> <br>
+		<form class="form-inline" method="post" action="/admin/finduser"><div class="form-group">
+			<input class="form-control" type="text" name="username" placeholder="User Name"> <br></div>
 		
-		<button>Search User</button>
+		<button class="btn btn-primary">Search User</button>
 		</form>
 	</div>
 	
-	<div style="clear:both"></div>
 	
-	<div style="margin-left:5%;margin-right:10%;padding:20px;float:left">
-		<p><font size="6"><strong>User List</strong></font></p>
-		<div style="width:500px;height:400px;line-height:3em;overflow:auto;padding:5px;border: 1px solid black;;LINE-HEIGHT:20px"> 
-		<ul >
+	<div style="margin-left:5%;margin-right:5%;padding:5px">
+		<p style='color:#00802d;margin-top:30px'><font size="6"><strong>User List</strong></font></p>
+		<div style="height:400px;line-height:3em;overflow:auto;padding:5px;border-radius:10px;border: 2px solid #009933;LINE-HEIGHT:20px"> 
+
+		<div class="container" style='width:100%'>
+           
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each list}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{first}}</td>
+        <td>{{last}}</td>
+        <td>{{email}}</td>
+      </tr>
+  {{/each}}
+
+    </tbody>
+  </table>
+</div>
+		<!--<ul >
 		{{#each list}}
 		<li>
 				<strong>Account Name: </strong> {{name}}<br/>
@@ -102,6 +162,7 @@
 
 		</ul>
 		</div>
+		-->
 		
 
 	</div>

@@ -146,11 +146,8 @@ app.get('/', (req, res) => {
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
     if(!(user.admin)){
-    var message = req.flash('userhome') || '';
-    res.render('userhome', { title   : 'User Home',
-                          layout: 'usermain',
-                          message : message ,
-                      		name: user.name});
+    	req.flash('userhome','You are User')
+	 res.redirect('/user/home');
   }
   else { // send to admin homepage if admin
 	 req.flash('adminhome','You are Admin')
