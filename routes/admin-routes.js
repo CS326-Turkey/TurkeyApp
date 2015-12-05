@@ -29,6 +29,7 @@ router.get('/home', (req, res) => {
 			}
 			else{
 				var message = req.flash('adminhome') || '';
+				
     			res.render('adminhome', { title   : 'Admin Home', layout:'adminmain',
                           message : message ,
                           name: user.name});
@@ -66,8 +67,8 @@ router.get('/admin', (req, res) => {
 				trans.forEach(function(tr){
 					translist[tr._id]=tr;
 				});
-
-				 res.render('admin', { title   : 'Admin', layout:'adminmain',
+				var addadmin = req.flash('addadmin') || '';
+				 res.render('admin', { title   : 'Admin', layout:'adminmain',addadmin:addadmin,
                           message : message ,
  							translist:translist,
                       		list: list});
@@ -127,6 +128,27 @@ router.get('/list', (req, res) => {
 				});
 			}
 		}
+	}
+});
+
+router.post('/addadmin', (req, res) => {
+	var name = req.body.name;
+	var admin = true;
+	var pass=req.body.pass;
+	var cpass=req.body.cpass;
+
+	if (!name || !pass || !cpass) {
+		req.flash('addadmin', 'Missing Input');
+		res.redirect('/admin/admin');
+	}
+	else if(pass!==cpass){
+		req.flash('addadmin', 'Two passwords are not match');
+		res.redirect('/admin/admin');
+	}
+	else{
+		db.addUser(name,"fname","lname",pass,"email","question","answer",admin);
+		req.flash('addadmin', 'Admin added!');
+		res.redirect('/admin/admin');
 	}
 });
 

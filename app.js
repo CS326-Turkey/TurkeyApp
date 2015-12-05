@@ -184,7 +184,6 @@ app.get('/admin', (req, res) => {
 
 app.post('/adduser', (req, res) => {
 	var name = req.body.name;
-	var pass = req.body.pass;
 	var admin = false;
 	var pass=req.body.pass;
 	var cpass=req.body.cpass;
@@ -203,8 +202,8 @@ app.post('/adduser', (req, res) => {
 	}
 	else{
 		db.addUser(name,fname,lname,pass,email,question,answer,admin);
-		req.flash('register', 'User added!');
-		res.redirect('/register');
+		req.flash('login', 'Signed up! Please log in.');
+		res.redirect('/login');
 	}
 });
 

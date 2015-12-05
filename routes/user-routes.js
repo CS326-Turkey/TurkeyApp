@@ -27,7 +27,8 @@ router.get('/login', (req, res) => {
     // Grab any messages being sent to us from redirect:
     var message = req.flash('login') || '';
     res.render('login', { title   : 'User Login',
-                          message : message });
+                          message : message
+                          });
   }
 });
 
@@ -41,10 +42,14 @@ router.get('/home', (req, res) => {
   if (user && online[user.name]) {
     if(!(user.admin)){
     var message = req.flash('userhome') || '';
+    var punchmessage = req.flash('punch') || '';
     res.render('userhome', { title   : 'User Home',
                           layout: 'usermain',
                           message : message ,
-                      		name: user.name});
+                      		name: user.name,
+                          donated: user.donated,
+                          available: user.available,punchmessage:punchmessage
+                        });
   }
   else{
 	 req.flash('adminhome','You are Admin')
@@ -215,6 +220,33 @@ router.post('/addcard', (req, res) =>{
     }
 
 });
+
+router.post('/punch', (req, res) =>{
+    var user = req.session.user;
+    var confirm = req.body.confirm;
+    
+  
+    if(!confirm){
+      req.flash('punch','Please confirm');
+    res.redirect('/user/home');
+    }
+    else{
+      console.log('user id is: '+user._id);
+      if(confirm!=='yes'){
+    req.flash('punch','Please confirm');
+    res.redirect('/user/home');
+      }
+      else{
+        model.punch(user.name);
+            req.flash('punch','Done!');
+    res.redirect('/user/home');
+      }
+      
+    }
+
+});
+
+
 
 //================================================================
 // Performs **basic** user authentication.

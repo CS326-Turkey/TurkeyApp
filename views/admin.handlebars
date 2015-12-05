@@ -1,11 +1,12 @@
 
 	
 <div>
-	<div style="margin-left:2%;margin-right:10%;padding:10px">
-		<p><strong><font size = "7">Admin Page</font></strong></p>
+	<div style="padding:20px;padding-bottom:0;background-color: #339933">
+		<p style="color:white;text-align:right;margin-bottom:0"><strong><font size = "7">Admin Page</font></strong></p>
 	</div>
 	
 	<div style="margin-left:5%;margin-right:5%;padding:5px;" >
+	<p style="color:red">{{addadmin}}</p>
 		<p style='color:#00802d'><font size="6"><strong>All Transactions</strong></font></p>
 		<div style="height:400px;line-height:3em;overflow:auto;padding:5px;border-radius:10px;border: 2px solid #009933;LINE-HEIGHT:20px"> 
 
@@ -163,11 +164,18 @@
 		</ul>
 		</div>
 		-->
-		
 
 	</div>
-	
 
 
-	<div style="clear:both"></div>
-	
+<p style='color:#00802d;margin-top:30px'><font size="6"><strong>Add a New Admin</strong></font></p>
+<div style="border-radius:10px;border: 2px solid #009933;width:280px;padding:20px">
+<div align='center'>
+<form method="post" action="/admin/addadmin" style="width:230px">
+  Admin Name: <br><input class="form-control" type="text" name="name"> <br>
+  Password:  <br><input class="form-control" type="password" name="pass"> <br>
+  Confirm Your Password:  <br><input class="form-control" type="password" name="cpass"> <br>
+  <button class="btn btn-success">Add</button>
+</form>
+</div>
+</div>
