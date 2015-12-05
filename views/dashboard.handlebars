@@ -1,26 +1,80 @@
+<style>
+table.tableSection {
+        display: table;
+        width: 100%;
+        border-style: ridge;
+    }
+    table.tableSection thead, table.tableSection tbody {
+        float: left;
+        width: 100%;
+        border-style: ridge;
+    }
+    table.tableSection tbody {
+        overflow: auto;
+        height: 150px;
+        border-style: ridge;
+    }
+    table.tableSection tr {
+        width: 100%;
+        display: table;
+        border-style: ridge;
+    }
+    table.tableSection th, table.tableSection td {
+        width: 25%;
+        border-style: ridge;
+        text-align: center;
+    }
 <div>
-	
+</style>
 
 	
 	
 	<div style="margin-left:10%;margin-right:10%;margin-top:70px;padding:10px">
 		<p><font size="7"><strong>All the donations you have done</strong></font></p>
 	</div>
-	
+
+
+
+
+
+
+
+
 	
 	
 	<div style="margin-left:10%;margin-right:10%;margin-top:10px;padding:20px">
-		<ul>
-			 {{#each transaction}}
-			<li>
-				<strong>Website: </strong> {{this.website}}<br/>
-				<strong>Extra Change: $</strong> {{this.total}}<br/>
-				<strong>Date:</strong> {{this.created_at_year}}-{{this.created_at_month}}-{{this.created_at_date}}<br/>
-				<strong>Charity ID:</strong> {{this.charity_id}}<br/>
-				<br/>
-			</li>
-			 {{/each}}
-		</ul>	
+
+		<table class="tableSection">
+                <thead>
+                    <tr>
+                        <th><span class="text">Website</span>
+
+                        </th>
+                        <th><span class="text">Extra Change</span>
+
+                        </th>
+                        <th><span class="text">Date</span>
+
+                        </th>
+                        <th><span class="text">Charity ID</span>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                	{{#each transaction}}
+                    <tr>
+                        <td>{{this.website}}</td>
+                        <td>{{this.total}}</td>
+                        <td>{{this.created_at_year}}-{{this.created_at_month}}-{{this.created_at_date}}</td>
+                        <td>{{this.charity_id}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+
+
+
 	</div>
 	
 	
