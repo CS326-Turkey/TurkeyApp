@@ -28,11 +28,53 @@ router.get('/home', (req, res) => {
 				res.redirect('/user/home');
 			}
 			else{
-				var message = req.flash('adminhome') || '';
-				
+				db.getCollection({},db.User,function(err,users){
+					if(err){
+						console.log('error');
+					}
+					else{
+						var listuser={};
+						var numuser=0;
+						users.forEach(function(user){
+						
+						numuser++;
+						});
+
+
+
+							db.getCollection({},db.Transaction,function(err,tt){
+					if(err){
+						console.log('error');
+					}
+					else{
+						var listt={};
+						var numt=0;
+						tt.forEach(function(ttt){
+						
+						numt+=ttt.total;
+						});
+
+
+
+
+
+
+						var message = req.flash('adminhome') || '';
     			res.render('adminhome', { title   : 'Admin Home', layout:'adminmain',
                           message : message ,
-                          name: user.name});
+                          name: user.name,
+                          numuser:numuser,
+                          totalt:numt});
+					}
+				});
+
+
+
+
+					}
+				});
+
+
 			}
 		}
 	}

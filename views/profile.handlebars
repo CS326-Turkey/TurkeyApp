@@ -1,80 +1,71 @@
+    <div style="padding:20px;padding-bottom:0;background-color: #339933">
+        <p style="color:white;text-align:right;margin-bottom:0"><strong><font size = "7">{{name}} - Profile</font></strong></p>
+    </div>
+<div style="padding:20px;margin-left:5%">
+    <p style="color:green"><font size="6"><strong>My Information</strong></font></p>
+<div >
 
-
-
-
-<div style="padding:50px">
-<h1>{{title}}</h1>
-<p>Account Management - {{name}}</p>
-
-<p>Your information: </p>
-<ul>
-  <li>User Name: {{name}}</li>
-  <li>First Name: {{first}}</li>
-  <li>Last Name: {{last}}</li>
-  <li>Email: {{email}}</li>
-</ul>
-
-<div>
-<h2>Setting</h2>
-<p style="color:red">{{message}}</p>
-<div class="inlinebox">
-<form method="post" action="/user/changepass">
-  
-  <h4>Change Password</h4>
-  Old Password:  <br><input type="password" name="oldpass"><br>
-  New Password:  <br><input type="password" name="newpass"><br>
-  Confirm Password:  <br><input type="password" name="confirmpass"><br>
-  <button>Save Changes</button>
-  </form>
+    <ul class="list-group" style="width:400px;border:2px solid lightgreen;border-radius:5px"">
+        <li class="list-group-item">User Name: {{name}}</li>
+        <li class="list-group-item">First Name: {{first}}</li>
+        <li class="list-group-item">Last Name: {{last}}</li>
+        <li class="list-group-item">Email: {{email}}</li>
+    </ul>
 </div>
-<div class="inlinebox">
-<form method="post" action="/user/changefirstname">
-  <h4>Change Name </h4>
-  First Name:  <br><input type="text" name="name"><br>
-  <button>Save Changes</button>
-  </form>
-  <form method="post" action="/user/changelastname">
-  Last Name:  <br><input type="text" name="name"><br>
-  <button>Save Changes</button>
-  </form>
-  </div>
-<div class="inlinebox">
-<form method="post" action="/user/changeemail">
-  <h4>Chane E-mail </h4>
-  New e-mail address:  <br><input type="text" name="email"><br>
-  <button>Save Changes</button>
-  </form>
-</div>
+    <div>
+        <p style="color:green;margin-top:40px"><font size='6'><strong>Setting</strong></font></p>
+        <p style="color:red">{{message}}</p>
+        <div class="inlinebox">
+            <form method="post" action="/user/changepass">
 
-<div class="inlinebox">
-<form method="post" action="/user/addcard">
-  <h4>Add a Credit/Debit Card </h4>
-  Card number  <br><input type="text" name="cardnumber"><br>
-  Name on card:  <br><input type="text" name="cardholder"><br>
-  Expiration date(MM/YY):  <br><input type="text" name="exp"><br>
-  Security Code:  <br><input type="text" name="sc"><br>
-  <button>Add</button>
-  </form>
-  </div>
-</div>
-  <p style="clear:left;padding-top:150px">Links: </p>
-  <p><a href="http://www.amazon.com/" target="_blank">Amazon</a></p>
-  <p><a href="http://www.ebay.com/" target="_blank">ebay</a></p>
-  <p><a href="http://www.newegg.com/" target="_blank">newegg</a></p>
+                <h4>Change Password</h4>
+                Old Password:  <br><input class="form-control" type="password" name="oldpass"><br>
+                New Password:  <br><input class="form-control" type="password" name="newpass"><br>
+                Confirm Password:  <br><input class="form-control" type="password" name="confirmpass"><br>
+                <button class="btn btn-success">Save Changes</button>
+            </form>
+        </div>
+        <div class="inlinebox">
+            <form method="post" action="/user/changefirstname">
+                <h4>Change Name </h4>
+                First Name:  <br><input class="form-control" type="text" name="name"><br>
+                <button class="btn btn-success">Save Changes</button>
+            </form><br><br>
+            <form method="post" action="/user/changelastname">
+                Last Name:  <br><input class="form-control" type="text" name="name"><br>
+                <button class="btn btn-success">Save Changes</button>
+            </form>
+        </div>
+        <div class="inlinebox">
+            <form method="post" action="/user/changeemail">
+                <h4>Chane E-mail </h4>
+                New e-mail address:  <br><input class="form-control" type="text" name="email"><br>
+                <button class="btn btn-success">Save Changes</button>
+            </form>
+        </div>
 
-  <p>Charity Programs: </p>
-  <p><a href="http://www.unicef.org/" target="_blank">Unicef</a></p>
-  <p><a href="http://www.savethechildren.org/site/c.8rKLIXMGIpI4E/b.6115947/k.B143/Official_USA_Site.htm" target="_blank">Save the Children</a></p>
-  <p><a href="http://www.redcross.org/" target="_blank">American Red Cross</a></p>
-  <p><a href="https://www.stjude.org/" target="_blank">St. Jude Children's Research Hospital</a></p>
-
-
+        <div class="inlinebox">
+            <form method="post" action="/user/addcard">
+                <h4>Add a Credit/Debit Card </h4>
+                Card number  <br><input class="form-control" type="text" name="cardnumber"><br>
+                Name on card:  <br><input class="form-control" type="text" name="cardholder"><br>
+                Expiration date(MM/YY):  <br><input class="form-control" type="text" name="exp"><br>
+                Security Code:  <br><input class="form-control" type="text" name="sc"><br>
+                <button class="btn btn-success">Add</button>
+            </form>
+        </div>
+    </div>
+    <p style="clear:left;margin-top:200px"></p>
+    
 </div>
 <style>
-.inlinebox{
-  float:left;
-  width: 200px;
-  height: 100px;
-  margin: 20px;
-}
+    .inlinebox{
+        float:left;
+        margin: 20px;
+        height:400px;
+        padding:20px;
+        border: 2px solid lightgreen;
+        border-radius:5px;
+        margin-top:0;
+    }
 </style>
