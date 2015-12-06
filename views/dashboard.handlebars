@@ -1,5 +1,7 @@
-
-	
+<head>
+<!-- import plugin script -->
+<script src='Chart.min.js'></script>
+</head>	
 <div>
 	<div style="padding:20px;padding-bottom:0;background-color: #339933">
 		<p style="color:white;text-align:right;margin-bottom:0"><strong><font size = "7">bb - Dashboard</font></strong></p>
@@ -51,8 +53,6 @@
 		<!--
 		<ul >
 		{{#if findcharity}}
-
-			
 			{{#each ttt}}
 			<li>
 				<strong>Charity Name: </strong> {{charity_name}}<br/>
@@ -91,6 +91,43 @@
 		</form><br>
 	</div>
 	
+	<div style="margin-left:5%;margin-right:10%;padding:5px;">
+
+        <!-- pie chart canvas element -->
+        <canvas id="countries" width="600" height="400"></canvas>
+
+        <script>
+            // pie chart data
+            var pieData = [
+                {
+                    value: 20,
+                    color:"#878BB6"
+                },
+                {
+                    value : 40,
+                    color : "#4ACAB4"
+                },
+                {
+                    value : 10,
+                    color : "#FF8153"
+                },
+                {
+                    value : 30,
+                    color : "#FFEA88"
+                }
+            ];
+            // pie chart options
+            var pieOptions = {
+                 segmentShowStroke : false,
+                 animateScale : true
+            }
+            // get pie chart canvas
+            var countries= document.getElementById("countries").getContext("2d");
+            // draw pie chart
+            new Chart(countries).Pie(pieData, pieOptions);
+            
+        </script>
+	</div>
 	
 
 	</div>

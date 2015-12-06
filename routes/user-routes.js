@@ -80,11 +80,16 @@ if (user && online[user.name]) {
                     req.flash('dash', error);
                     res.redirect('/user/home');
                 } else{
+                    var chartData = [];
+                    for (var i = 0; i < 7; i++)
+                        chartData.push(Math.random() * 50);
+
                     req.flash('dash', 'Here is all your transactions');
                     res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
                         message : message ,
                         name: user.name,
-                        transaction: trac});
+                        transaction: trac,
+                        chartData: chartData });
                 }
             }
         );

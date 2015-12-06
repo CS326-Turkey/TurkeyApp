@@ -1,0 +1,56 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\software\\nodejs\\node.exe',
+1 verbose cli   'D:\\software\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'chart.js' ]
+2 info using npm@2.14.4
+3 info using node@v4.1.2
+4 verbose install initial load of D:\umass\2015Fall\326\Glean\TurkeyApp\package.json
+5 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\body-parser\package.json
+6 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\chart\package.json
+7 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\connect-flash\package.json
+8 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\cookie-parser\package.json
+9 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\express\package.json
+10 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\express-handlebars\package.json
+11 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\express-session\package.json
+12 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\mongodb\package.json
+13 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\mongojs\package.json
+14 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\mongoose\package.json
+15 verbose installManyTop reading scoped package data from D:\umass\2015Fall\326\Glean\TurkeyApp\node_modules\morgan\package.json
+16 info package.json connect-flash@0.1.1 No license field.
+17 info package.json chart@0.1.2 No license field.
+18 verbose readDependencies loading dependencies from D:\umass\2015Fall\326\Glean\TurkeyApp\package.json
+19 silly cache add args [ 'chart.js', null ]
+20 verbose cache add spec chart.js
+21 silly cache add parsed spec Result {
+21 silly cache add   raw: 'chart.js',
+21 silly cache add   scope: null,
+21 silly cache add   name: null,
+21 silly cache add   rawSpec: 'chart.js',
+21 silly cache add   spec: 'D:\\umass\\2015Fall\\326\\Glean\\TurkeyApp\\chart.js',
+21 silly cache add   type: 'local' }
+22 silly addLocalTarball shasum (computed) 9bf88b5b1cecf6d5cf1c26730b44cb1444695670
+23 verbose addTmpTarball D:\umass\2015Fall\326\Glean\TurkeyApp\chart.js not in flight; adding
+24 verbose addTmpTarball validating metadata from D:\umass\2015Fall\326\Glean\TurkeyApp\chart.js
+25 verbose tar unpack D:\umass\2015Fall\326\Glean\TurkeyApp\chart.js
+26 verbose tar unpacking to C:\Users\Lin\AppData\Local\Temp\npm-18292-39adf14a\unpack-34184309a043
+27 silly gentlyRm C:\Users\Lin\AppData\Local\Temp\npm-18292-39adf14a\unpack-34184309a043 is being purged
+28 verbose gentlyRm don't care about contents; nuking C:\Users\Lin\AppData\Local\Temp\npm-18292-39adf14a\unpack-34184309a043
+29 silly gunzTarPerm modes [ '777', '666' ]
+30 error not a package D:\umass\2015Fall\326\Glean\TurkeyApp\chart.js
+31 error addLocal Could not install D:\umass\2015Fall\326\Glean\TurkeyApp\chart.js
+32 verbose stack Error: ENOENT: no such file or directory, open 'C:\Users\Lin\AppData\Local\Temp\npm-18292-39adf14a\unpack-34184309a043\package.json'
+32 verbose stack     at Error (native)
+33 verbose cwd D:\umass\2015Fall\326\Glean\TurkeyApp
+34 error Windows_NT 6.1.7601
+35 error argv "D:\\software\\nodejs\\node.exe" "D:\\software\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "chart.js"
+36 error node v4.1.2
+37 error npm  v2.14.4
+38 error path C:\Users\Lin\AppData\Local\Temp\npm-18292-39adf14a\unpack-34184309a043\package.json
+39 error code ENOENT
+40 error errno -4058
+41 error syscall open
+42 error enoent ENOENT: no such file or directory, open 'C:\Users\Lin\AppData\Local\Temp\npm-18292-39adf14a\unpack-34184309a043\package.json'
+42 error enoent This is most likely not a problem with npm itself
+42 error enoent and is related to npm not being able to find a file.
+43 verbose exit [ -4058, true ]
