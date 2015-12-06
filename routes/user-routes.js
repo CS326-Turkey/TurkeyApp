@@ -12,6 +12,8 @@ var router = express.Router();
 // A list of users who are online:
 var online = require('../lib/online').online;
 
+var db = require('../lib/database.js');
+
 //=================================================================
 
 // Provides a login view
@@ -402,3 +404,55 @@ if (user){
 
 
 module.exports = router;
+
+
+router.post('/findcharity', (req, res) =>{
+    var user = req.session.user;
+var charity = req.body.charity;
+
+if(!charity){
+    console.log("missing input");
+    //req.flash('profile','Missing input!!!');
+    res.redirect('/user/dash');
+}
+else{
+    //console.log('user id is: '+user._id);
+    if (user && online[user.name]) {
+
+            var message = req.flash('dash') || '';
+            if(!user.admin){
+                db.getCollection({charity_name:charity, user_id: user._id},db.Transaction, function(error, c){
+                    if(error){
+                        console.log(error);
+                    }
+                    else{
+                        console.log('c is'+c);
+                        if(c!=null){
+                            res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
+                                message : message ,
+                                name: user.name,
+                                transaction: c});
+                        }
+                    }
+                });
+            }
+        else{
+            //req.flash('userhome','You are not Admin')
+            req.flash('dash','Found Nothing about "'+ charity+'"');
+            res.redirect('/user/dash');
+            }
+
+        }
+    else {
+        // Grab any messages being sent to us from redirect:
+        req.flash('login', 'You are not logged in')
+        res.redirect('/user/login');
+    }
+
+
+    ////////////
+
+
+}
+
+});

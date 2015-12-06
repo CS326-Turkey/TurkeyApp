@@ -1,63 +1,98 @@
-<style>
-    table.tableSection {
-        display: table;
-        width: 100%;
-        border-style: ridge;
-    }
-    table.tableSection thead, table.tableSection tbody {
-        float: left;
-        width: 100%;
-        border-style: ridge;
-    }
-    table.tableSection tbody {
-        overflow: auto;
-        height: 150px;
-        border-style: ridge;
-    }
-    table.tableSection tr {
-        width: 100%;
-        display: table;
-        border-style: ridge;
-    }
-    table.tableSection th, table.tableSection td {
-        width: 25%;
-        border-style: ridge;
-        text-align: center;
-    }
-</style>
 
-<div style="margin-left:10%;margin-right:10%;margin-top:70px;padding:10px">
-    <p><font size="7"><strong>All the donations you have done</strong></font></p>
+	
+<div>
+	<div style="padding:20px;padding-bottom:0;background-color: #339933">
+		<p style="color:white;text-align:right;margin-bottom:0"><strong><font size = "7">bb - Dashboard</font></strong></p>
+	</div>
+	
+	<div style="margin-left:5%;margin-right:5%;padding:5px;" >
+	<p style="color:red">{{addadmin}}</p>
+		<p style='color:#00802d'><font size="6"><strong>All Transactions</strong></font></p>
+		<div style="height:400px;line-height:3em;overflow:auto;padding:5px;border-radius:10px;border: 2px solid #009933;LINE-HEIGHT:20px"> 
+
+<div class="container" style='width:100%'>      
+  <table class="table table-hover ">
+    <thead>
+      <tr>
+        <th>Charity Name</th>
+        <th>Date</th>
+        <th>Extra Change</th>
+        <th>Website</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#if findcharity}}
+
+			
+			{{#each ttt}}
+
+      <tr>
+		<td>{{charity_name}}</td>
+        <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+        <td>${{total}}</td>
+        <td>{{website}}</td>
+      </tr>
+			{{/each}}
+		
+		
+		{{else}}
+		{{#each transaction}}
+		<tr>
+        <td>{{charity_name}}</td>
+        <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+        <td>${{total}}</td>
+        <td>{{website}}</td>
+		 </tr>
+      {{/each}}
+		{{/if}}
+    </tbody>
+  </table>
 </div>
+		<!--
+		<ul >
+		{{#if findcharity}}
 
-<div style="margin-left:10%;margin-right:10%;margin-top:10px;padding:20px">
-    <table class="tableSection">
-        <thead>
-        <tr>
-            <th><span class="text">Website</span>
+			
+			{{#each ttt}}
+			<li>
+				<strong>Charity Name: </strong> {{charity_name}}<br/>
+				<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
+				<strong>Extra Change: $</strong> {{total}}<br/>
+				<strong>Website: </strong>{{website}}<br><br>
+				
+			</li>
+			{{/each}}
 
-            </th>
-            <th><span class="text">Extra Change</span>
 
-            </th>
-            <th><span class="text">Date</span>
+		{{else}}
+		{{#each transaction}}
+			<li>
+				<strong>Charity Name: </strong> {{charity_name}}<br/>
+				<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
+				<strong>Extra Change: </strong> {{website}}<br/>
+				<strong>Website: </strong>${{total}}<br><br>
+				
+			</li>
+		{{/each}}
+		{{/if}}
+		</ul>
+		-->
+		</div>
+	</div>
+	
+	
+	
+	<div style="margin-left:5%;margin-right:10%;padding:5px;">
+		<span style="color:red">{{message}}</span>
+		<h4>Search for Transactions</h4>
+		<form class="form-inline" method="post" action="/user/findcharity"><div class="form-group">
+		<input class="form-control" type="text" name="charity" placeholder='Charity Name'> <br></div>
+		<button class="btn btn-primary">Search Charity</button>
+		</form><br>
+	</div>
+	
+	
 
-            </th>
-            <th><span class="text">Charity Name</span>
+	</div>
 
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#each transaction}}
-            <tr>
-                <td>{{this.website}}</td>
-                <td>{{this.total}}</td>
-                <td>{{this.created_at_year}}-{{this.created_at_month}}-{{this.created_at_date}}</td>
-                <td>{{this.charity_name}}</td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
-</div>
 
