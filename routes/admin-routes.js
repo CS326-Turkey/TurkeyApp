@@ -387,4 +387,102 @@ else{
 
 });
 
+router.post('/finduserbyid', (req, res) =>{
+    var user = req.session.user;
+    var username = req.body.username;
+
+    if(!username){
+      console.log("missing input");
+      //req.flash('profile','Missing input!!!');
+    res.redirect('/admin/admin');
+    }
+    else{
+    	var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
+      if(checkForHexRegExp.test(username)==false){
+      	 console.log("invalid input");
+      //req.flash('profile','Missing input!!!');
+      req.flash('admin','Invalid Input "'+ username+'"');
+    res.redirect('/admin/admin');
+      }
+if (user && online[user.name]) {
+    if((user.admin)){
+    var message = req.flash('admin') || '';
+
+	db.getCollection({},db.User,function(err,users){
+	if(err){
+		console.log('error')
+	}
+	else{
+		var list={};
+		users.forEach(function(user){
+			list[user._id]=user;
+			// console.log(user);
+		});
+		//console.log(list);
+		db.getCollection({},db.Transaction,function(error,trans){
+			if(error){
+
+			}
+			else{
+				var translist={};
+				trans.forEach(function(tr){
+					translist[tr._id]=tr;
+				});
+db.getObject({_id:username},db.User, function(error, u){
+    		if(error){
+    			console.log(error);
+    		}
+    		else{
+    			console.log('u is'+u);
+    			if(u!=null){
+    			var foundu=u;
+    			db.getCollection({user_id: u._id},db.Transaction, function(er,transs){
+    				if(er){
+    					console.log(er);
+    				}
+    				else{
+    					var uuu=transs;
+    					console.log('ok '+uuu);
+    						res.render('admin', { title   : 'Admin', layout:'adminmain',finduser:foundu,hhh:uuu,
+                           message : message ,
+ 							translist:translist,
+                      		list: list});
+    				}
+
+
+
+    			});
+    		}
+    		else{
+    			//req.flash('userhome','You are not Admin')
+    			req.flash('admin','Found Nothing about "'+ username+'"');
+	res.redirect('/admin/admin');
+    		}
+
+
+    		}
+    	});
+
+			}
+		});
+
+	}
+});
+
+}
+else{
+	req.flash('userhome','You are not Admin')
+	res.redirect('/user/home');
+}
+  }
+  else {
+    // Grab any messages being sent to us from redirect:
+    req.flash('login', 'You are not logged in')
+    res.redirect('/user/login');
+  }
+
+    }
+
+});
+
 module.exports = router;

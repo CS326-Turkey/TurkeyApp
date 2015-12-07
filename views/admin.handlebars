@@ -16,8 +16,8 @@
       <tr>
         <th>Date</th>
         <th>User ID</th>
-        <th>Charity ID</th>
-        <th>Donation</th>
+        <th>Charity Name</th>
+        <th>Changes</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
       <tr>
         <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
         <td>{{user_id}}</td>
-        <td>{{charity_id}}</td>
+        <td>{{charity_name}}</td>
         <td>${{total}}</td>
       </tr>
 			{{/each}}
@@ -39,7 +39,7 @@
       <tr>
         <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
         <td>{{user_id}}</td>
-        <td>{{charity_id}}</td>
+        <td>{{charity_name}}</td>
         <td>${{total}}</td>
       </tr>
 	{{/each}}
@@ -50,7 +50,7 @@
 		  <tr>
         <td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
         <td>{{user_id}}</td>
-        <td>{{charity_id}}</td>
+        <td>{{charity_name}}</td>
         <td>${{total}}</td>
       </tr>
       {{/each}}
@@ -58,48 +58,7 @@
     </tbody>
   </table>
 </div>
-		<!--
-		<ul >
-		{{#if findcharity}}
-
-			
-			{{#each fff}}
-			<li>
-			<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
-				<strong>Charity ID: </strong> {{charity_id}}<br/>
-				<strong>User ID: </strong> {{user_id}}<br/>
-					<strong>Website: </strong> {{website}}<br/>
-					<strong>Donation: </strong>${{total}}<br><br>
-				
-			</li>
-			{{/each}}
-		{{else if finduser}}
-			{{#each hhh}}
-			<li>
-			<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
-				<strong>Charity ID: </strong> {{charity_id}}<br/>
-				<strong>User ID: </strong> {{user_id}}<br/>
-				<strong>Website: </strong> {{website}}<br/>
-				<strong>Donation: </strong>${{total}}<br><br>
-				
-			</li>
-			{{/each}}
-
-
-		{{else}}
-		{{#each translist}}
-		<li>
-		<strong>Date:</strong> {{created_at_year}}-{{created_at_month}}-{{created_at_date}}<br/>
-				<strong>Charity ID: </strong> {{charity_id}}<br/>
-				<strong>User ID: </strong> {{user_id}}<br/>
-				<strong>Website: </strong> {{website}}<br/>
-				<strong>Donation: </strong>${{total}}<br><br>
-				
-			</li>
-		{{/each}}
-		{{/if}}
-		</ul>
-		-->
+		
 		</div>
 	</div>
 	
@@ -109,13 +68,27 @@
 		<span style="color:red">{{message}}</span>
 		<h4>Search for Transactions</h4>
 		<form class="form-inline" method="post" action="/admin/findcharity"><div class="form-group">
-		<input class="form-control" type="text" name="charity" placeholder='Charity Name'> <br></div>
+		<select class="form-control" name="charity" >
+			<option value="none">--Please Select--</option>
+  			<option value="The Task Force">The Task Force</option>
+  			<option value="American Red Cross">American Red Cross</option>
+  			<option value="United Way">United Way</option>
+  			<option value="The Salvation Army">The Salvation Army</option>
+  			<option value="Feeding America">Feeding America</option>
+		</select></div>
 		<button class="btn btn-primary">Search Charity</button>
 		</form><br>
+
 		<form class="form-inline" method="post" action="/admin/finduser"><div class="form-group">
-			<input class="form-control" type="text" name="username" placeholder="User Name"> <br></div>
+			<input class="form-control" type="text" name="username" placeholder="User Name"> </div>
 		
-		<button class="btn btn-primary">Search User</button>
+		<button class="btn btn-primary" >Search by Name</button>
+		</form><br>
+
+		<form class="form-inline" method="post" action="/admin/finduserbyid"><div class="form-group">
+			<input class="form-control" type="text" name="username" placeholder="User ID"> </div>
+		
+		<button class="btn btn-primary" >Search By ID</button>
 		</form>
 	</div>
 	
@@ -148,22 +121,7 @@
     </tbody>
   </table>
 </div>
-		<!--<ul >
-		{{#each list}}
-		<li>
-				<strong>Account Name: </strong> {{name}}<br/>
-				<div style="margin-left:20%">
-					<strong>First Name:</strong> {{first}}<br/> 
-					<strong>Last Name:</strong> {{last}}</br>
-					<strong>Email:</strong> {{email}}<br/><br>
-					
-				</div>
-			</li>
-		{{/each}}
-
-		</ul>
-		</div>
-		-->
+		
 
 	</div>
 
