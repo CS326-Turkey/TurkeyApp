@@ -1,7 +1,4 @@
-<head>
-<!-- import plugin script -->
-<script src='Chart.min.js'></script>
-</head>	
+
 <div>
 	<div style="padding:20px;padding-bottom:0;background-color: #339933">
 		<p style="color:white;text-align:right;margin-bottom:0"><strong><font size = "7">bb - Dashboard</font></strong></p>
@@ -13,7 +10,7 @@
 		<div style="height:400px;line-height:3em;overflow:auto;padding:5px;border-radius:10px;border: 2px solid #009933;LINE-HEIGHT:20px"> 
 
 <div class="container" style='width:100%'>      
-  <table class="table table-hover ">
+  <table id = "myTable" class="table table-hover ">
     <thead>
       <tr>
         <th>Charity Name</th>
@@ -91,40 +88,59 @@
 		</form><br>
 	</div>
 	
-	<div style="margin-left:5%;margin-right:10%;padding:5px;">
-
+	<div style="margin-left:5%;margin-right:10%;margin-top:1%;padding:5px;">
+		
+		<p style='color:#00802d'><font size="6"><strong>Donation Donut Chart</strong></font></p>
         <!-- pie chart canvas element -->
-        <canvas id="countries" width="600" height="400"></canvas>
-
+        <canvas id="countries" width="600" height="400" style="margin-left:25%;margin-right:20%"></canvas>
         <script>
-            // pie chart data
-            var pieData = [
-                {
-                    value: 20,
-                    color:"#878BB6"
-                },
-                {
-                    value : 40,
-                    color : "#4ACAB4"
-                },
-                {
-                    value : 10,
-                    color : "#FF8153"
-                },
-                {
-                    value : 30,
-                    color : "#FFEA88"
-                }
-            ];
+		
+			//total 10 colors for up to ten charities. If there are more than 10, this needs to be modified!!
+			var coolColors = ["#ADFF2F","#008000","#87CEFA","#20B2AA","#FF8153","#FFEA88","#878BB6","#4ACAB4", "#2E8B57","#FFC0CB"];
+			var colorIndex = 0;
+			var x = document.getElementById("myTable").rows.length;
+			var store = [];
+			for(var i = 1; i < x; i ++)
+			{
+				var y = document.getElementById("myTable").rows[i].cells[0].innerHTML;
+				
+				if(store.length == 0)
+				{
+				
+					var newEntryValue = Number(document.getElementById("myTable").rows[i].cells[2].innerHTML.substring(1));
+					store.push({value: newEntryValue, color: coolColors[colorIndex++], label: y });
+					
+				}
+				else{
+					var check = 0;
+					store.forEach(function(j){
+						if( y == j.label && check == 0){
+							j.value += Number(document.getElementById("myTable").rows[i].cells[2].innerHTML.substring(1));
+							check = 1;
+							}
+						});
+					if(check == 0){
+					
+						var newEntryValue = Number(document.getElementById("myTable").rows[i].cells[2].innerHTML.substring(1));
+						store.push({value: newEntryValue, color: coolColors[colorIndex++],label: y });
+					
+					}
+				
+				}
+			}
+			
             // pie chart options
             var pieOptions = {
-                 segmentShowStroke : false,
+                 segmentShowStroke : true,
+				 animationSteps : 125,
+				 percentageInnerCutout : 25,
                  animateScale : true
-            }
+				 }
             // get pie chart canvas
             var countries= document.getElementById("countries").getContext("2d");
             // draw pie chart
-            new Chart(countries).Pie(pieData, pieOptions);
+            new Chart(countries).Pie(store, pieOptions);
+
             
         </script>
 	</div>
