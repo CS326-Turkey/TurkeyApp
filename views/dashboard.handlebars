@@ -88,11 +88,13 @@
 		</form><br>
 	</div>
 	
-	<div style="margin-left:5%;margin-right:10%;margin-top:1%;padding:5px;">
-		
-		<p style='color:#00802d'><font size="6"><strong>Donation Donut Chart</strong></font></p>
+	
+	
+	<p style='color:#00802d;margin-left:5%;margin-right:10%;margin-top:1%;padding:5px;'><font size="6"><strong>Visualized Result</strong></font></p>
+	<div style="margin-left:15%;margin-right:10%;margin-top:1%;padding:5px;">
         <!-- pie chart canvas element -->
-        <canvas id="countries" width="600" height="400" style="margin-left:25%;margin-right:20%"></canvas>
+        <canvas id="pieDonut" width="600" height="400" style="float:left"></canvas>
+		<canvas id="bar" width="600" height="400" style="float:left"></canvas>
         <script>
 		
 			//total 10 colors for up to ten charities. If there are more than 10, this needs to be modified!!
@@ -129,6 +131,7 @@
 				}
 			}
 			
+			
             // pie chart options
             var pieOptions = {
                  segmentShowStroke : true,
@@ -137,14 +140,47 @@
                  animateScale : true
 				 }
             // get pie chart canvas
-            var countries= document.getElementById("countries").getContext("2d");
+            var pieDonut= document.getElementById("pieDonut").getContext("2d");
             // draw pie chart
-            new Chart(countries).Pie(store, pieOptions);
+            new Chart(pieDonut).Pie(store, pieOptions);
+			
+						
+			/////////////////BAR////////////////////////
+			
+			barLabel = [];
+			barData = [];
+		
+			
+			for(var z = 0; z <store.length;z++)
+			{
+				barLabel.push(store[z].label);
+				barData.push(store[z].value);
+			
+			}
+			
 
-            
+			
+            var data = {
+			labels: barLabel,
+			datasets: [
+				{
+				label: "My First dataset",
+				fillColor: "rgba(151,187,205,0.5)",
+				strokeColor: "rgba(151,187,205,0.8)",
+				highlightFill: "rgba(151,187,205,0.75)",
+				highlightStroke: "rgba(151,187,205,1)",
+				data: barData
+				}
+			]
+		};
+			
+            // get bar chart canvas
+            var bar= document.getElementById("bar").getContext("2d");
+            // draw bar chart
+            new Chart(bar).Bar(data, {barShowStroke: false});
         </script>
 	</div>
-	
+	<div style="clear:both;"></div>
 
 	</div>
 
