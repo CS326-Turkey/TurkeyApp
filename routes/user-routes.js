@@ -80,8 +80,6 @@ if (user && online[user.name]) {
                     req.flash('dash', error);
                     res.redirect('/user/home');
                 } else{
-
-                    req.flash('dash', 'Here is all your transactions');
                     res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
                         message : message ,
                         name: user.name,
@@ -428,17 +426,24 @@ else{
                     }
                     else{
                         if(c!=null){
-                            res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
+                            if(c.length>0){
+                                res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
                                 message : message ,
                                 name: user.name,
                                 transaction: c});
+                            }
+                            else{
+                                req.flash('dash','Found Nothing about "'+ charity+'"');
+                                res.redirect('/user/dash');
+                            }
+
                         }
+
                     }
                 });
             }
         else{
-            //req.flash('userhome','You are not Admin')
-            req.flash('dash','Found Nothing about "'+ charity+'"');
+            req.flash('dash','You are Admin, not regular user :D');
             res.redirect('/user/dash');
             }
 
