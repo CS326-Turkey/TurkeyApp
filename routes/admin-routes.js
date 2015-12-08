@@ -42,7 +42,7 @@ router.get('/home', (req, res) => {
 
 
 
-							db.getCollection({},db.Transaction,function(err,tt){
+							db.getCollection({},db.User,function(err,tt){
 					if(err){
 						console.log('error');
 					}
@@ -51,7 +51,7 @@ router.get('/home', (req, res) => {
 						var numt=0;
 						tt.forEach(function(ttt){
 						
-						numt+=ttt.total;
+						numt+=ttt.donated;
 						});
 
 
@@ -95,8 +95,15 @@ router.get('/admin', (req, res) => {
 	}
 	else{
 		var list={};
+		var list_a={};
 		users.forEach(function(user){
-			list[user._id]=user;
+			if(user.admin==false){
+				list[user._id]=user;
+			}
+			else{
+				list_a[user._id]=user;
+			}
+			
 			// console.log(user);
 		});
 		//console.log(list);
@@ -113,7 +120,8 @@ router.get('/admin', (req, res) => {
 				 res.render('admin', { title   : 'Admin', layout:'adminmain',addadmin:addadmin,
                           message : message ,
  							translist:translist,
-                      		list: list});
+                      		list: list,
+                      		list_a:list_a});
 			}
 		});
 
@@ -178,6 +186,9 @@ router.post('/addadmin', (req, res) => {
 	var admin = true;
 	var pass=req.body.pass;
 	var cpass=req.body.cpass;
+	var fname=req.body.fname;
+	var lname=req.body.lname;
+	var email=req.body.email;
 
 	if (!name || !pass || !cpass) {
 		req.flash('addadmin', 'Missing Input');
@@ -188,7 +199,7 @@ router.post('/addadmin', (req, res) => {
 		res.redirect('/admin/admin');
 	}
 	else{
-		db.addUser(name,"fname","lname",pass,"email","question","answer",admin);
+		db.addUser(name,fname,lname,pass,email,"question","answer",admin);
 		req.flash('addadmin', 'Admin added!');
 		res.redirect('/admin/admin');
 	}

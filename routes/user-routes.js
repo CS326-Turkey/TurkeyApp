@@ -39,11 +39,28 @@ else {
 router.get('/home', (req, res) => {
     // Grab the session if the user is logged in.
     var user = req.session.user;
+    var name=user.name;
+    var pass=user.pass;
 
 // Redirect to main if session and user is online:
 if (user && online[user.name]) {
     if(!(user.admin)){
-        var message = req.flash('userhome') || '';
+
+        model.lookup(name, pass, function(error, user) {
+            if (error) {
+                // Pass a message to login:
+                req.flash('login', error);
+                res.redirect('/user/login');
+            }
+            else {
+                // add the user to the map of online users:
+                online[user.name] = user;
+
+                // create a session variable to represent stateful connection
+                req.session.user = user;
+
+
+                var message = req.flash('userhome') || '';
         var punchmessage = req.flash('punch') || '';
         res.render('userhome', { title   : 'User Home',
             layout: 'usermain',
@@ -52,6 +69,10 @@ if (user && online[user.name]) {
             donated: user.donated,
             available: user.available,punchmessage:punchmessage
         });
+            }
+        });
+
+        
     }
     else{
         req.flash('adminhome','You are Admin')
@@ -108,19 +129,45 @@ router.get('/profile', (req, res) => {
 
 // Redirect to main if session and user is online:
 if (user && online[user.name]) {
-    if(!(user.admin)){
-        var message = req.flash('profile') || '';
-        res.render('profile', { title   : 'Profile', layout:'usermain',
-            message : message ,
-            name: user.name.toUpperCase(),
-            first: user.first,
-            last: user.last,
-            email:user.email});
-    }
-    else{
-        req.flash('adminhome','You are Admin')
-        res.redirect('/admin/home');
-    }
+    ///////////////////////////
+    var name=user.name;
+    var pass=user.pass;
+     model.lookup(name, pass, function(error, user) {
+            if (error) {
+                // Pass a message to login:
+                req.flash('login', error);
+                res.redirect('/user/login');
+            }
+            else {
+                // add the user to the map of online users:
+                online[user.name] = user;
+
+                // create a session variable to represent stateful connection
+                req.session.user = user;
+
+
+
+                if(!(user.admin)){
+                    var message = req.flash('profile') || '';
+                        res.render('profile', { title   : 'Profile', layout:'usermain',
+                            message : message ,
+                        name: user.name.toUpperCase(),
+                        first: user.first,
+                        last: user.last,
+                            email:user.email});
+                 }
+                    else{
+                        req.flash('adminhome','You are Admin')
+                        res.redirect('/admin/home');
+                    }
+
+            }
+        });
+////////////////////////////////////////////////////////////////
+
+
+
+    
 }
 else {
     // Grab any messages being sent to us from redirect:
@@ -238,15 +285,54 @@ else{
         res.redirect('/user/home');
     }
     else{
-        model.punch(user.name);
-        req.flash('punch','Done!');
-        res.redirect('/user/home');
+        model.punch(user.name,10,function(err,u){
+            if(err){
+                console.log(err);
+                req.flash('punch','Less Than $10 Available!');
+                res.redirect('/user/home');
+            }
+            else{
+                 req.flash('punch','Done!');
+                    res.redirect('/user/home');
+            }
+        });
+       
     }
 
 }
 
 });
+//============================================
+router.post('/donate', (req, res) =>{
+    var user = req.session.user;
+var m = req.body.m;
 
+
+
+if(!m){
+    req.flash('punch','Please confirm');
+    res.redirect('/user/home');
+}
+else{
+    console.log('user id is: '+user._id);
+    
+        model.punch(user.name,m,function(err,u){
+            if(err){
+                console.log(err);
+                req.flash('punch','Less Than $10 Available!');
+                res.redirect('/user/home');
+            }
+            else{
+                 req.flash('punch','Done!');
+                    res.redirect('/user/home');
+            }
+        });
+       
+    
+
+}
+
+});
 
 
 //================================================================

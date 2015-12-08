@@ -37,6 +37,7 @@ var db = require('./lib/database.js');
 // console.log(list);
 // 	}
 // });
+//db.addTransaction('5655157cffee0a7014017884', '5655157cffee0a7014017884' , 2.5 , "Amazon", "FakeCharity");
 
 ///////////////////////////////////////////////////////////////////////
 /*------------*/
