@@ -5,14 +5,14 @@
     <div style="color:red">{{message}}</div><br>
 
     <form method="post" action="/adduser" style="width:230px">
-        User Name: <br><input class="form-control" type="text" name="name">
-        Password:  <br><input class="form-control" type="password" name="pass">
-        Confirm Your Password:  <br><input class="form-control" type="password" name="cpass">
-        Email: <br><input class="form-control" type="text" name="email">
-        First Name: <br><input class="form-control" type="text" name="fname">
-        Last Name: <br><input class="form-control" type="text" name="lname">
-        Security Question: <br><input class="form-control" type="text" name="question">
-        Answer: <br><input class="form-control" type="text" name="answer">
+        User Name: <br><input class="form-control" type="text" name="name" required>
+        Password:  <br><input class="form-control" type="password" name="pass" required>
+        Confirm Your Password:  <br><input class="form-control" type="password" name="cpass" required>
+        Email: <br><input class="form-control" type="text" name="email" required>
+        First Name: <br><input class="form-control" type="text" name="fname" required>
+        Last Name: <br><input class="form-control" type="text" name="lname" required>
+        Security Question: <br><input class="form-control" type="text" name="question" required>
+        Answer: <br><input class="form-control" type="text" name="answer" required>
 
         <button class="btn btn-success">Sign Up</button>
     </form>

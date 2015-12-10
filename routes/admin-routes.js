@@ -54,17 +54,15 @@ router.get('/home', (req, res) => {
 						numt+=ttt.donated;
 						});
 
-
-
-
-
-
 						var message = req.flash('adminhome') || '';
-    			res.render('adminhome', { title   : 'Admin Home', layout:'adminmain',
+
+    					res.render('adminhome', { 
+    					  title   : 'Admin Home', layout:'adminmain',
                           message : message ,
                           name: user.name,
                           numuser:numuser,
-                          totalt:numt});
+                          totalt:numt
+                      });
 					}
 				});
 
