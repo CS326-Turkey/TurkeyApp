@@ -101,7 +101,7 @@ var team = require('./lib/team.js');
 /* (non-users & non-admin) */
 /*-------------------------*/
  app.get('/about', (req, res) => {
- 	res.render('about',{layout:false});
+ 	res.render('about',{layout:'main'});
  });
 
  app.get('/register', (req, res) => {
@@ -127,7 +127,7 @@ app.get('/team*', (req, res) => {
 		var result = team.one(req.query.user);
 	}
 	if(result.count!==0){
-		res.render('team', {layout:false,
+		res.render('team', {layout: 'main',
 			members: result.data,
 		});
 	}
