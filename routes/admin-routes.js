@@ -1,3 +1,10 @@
+/*
+//  admin-routes.js
+//
+//  Routes accessible by administrators.
+//
+*/
+
 var express = require('express');
 
 //This gives us access to the user "model".
@@ -36,7 +43,7 @@ router.get('/home', (req, res) => {
 						var listuser={};
 						var numuser=0;
 						users.forEach(function(user){
-						
+
 						numuser++;
 						});
 
@@ -50,13 +57,13 @@ router.get('/home', (req, res) => {
 						var listt={};
 						var numt=0;
 						tt.forEach(function(ttt){
-						
+
 						numt+=ttt.donated;
 						});
 
 						var message = req.flash('adminhome') || '';
 
-    					res.render('adminhome', { 
+    					res.render('adminhome', {
     					  title   : 'Admin Home', layout:'adminmain',
                           message : message ,
                           name: user.name,
@@ -101,7 +108,7 @@ router.get('/admin', (req, res) => {
 			else{
 				list_a[user._id]=user;
 			}
-			
+
 			// console.log(user);
 		});
 		//console.log(list);

@@ -55,7 +55,7 @@ node app.js
  * ForgotPassword view is used to help user to find their passwords. When user forget their passwords, they can go to forgot password page and enter their information, and then the server find the password.
 
 ``dashboard``
- * Dashboard showing statistics for the user, including .
+ * Dashboard showing statistics for the user.
 
 ``profile``
   * Profile view shows the information of the user. User can also change their information.
@@ -76,13 +76,13 @@ node app.js
   * Home page of the User which is slightly different from the regular home page and admin home page.
 
 ``404``
-  * It shows when page is not found.
+  * Shows when page is not found.
 
 ``505``
-  * It shows when there is an error.
+  * Shows when there is an error.
 
 ``check_user_info``
-  * It confirms the information of the user for finding password.
+  * Confirms the information of the user for finding password.
 
 ``team``
   * Profiles of all team members.

@@ -1,3 +1,10 @@
+/*
+//  app.js
+//
+//  Main entry point for Glean web application.
+//
+*/
+
 var express = require('express');
 var handlebars = require('express-handlebars');
 

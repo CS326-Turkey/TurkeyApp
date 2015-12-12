@@ -1,3 +1,10 @@
+/*
+//  user-routes.js
+//
+//  Routes accessible by registered users.
+//
+*/
+
 //Most of the code is from individual assignment 3, cs326, Tim Richards
 
 var express = require('express');
@@ -72,7 +79,7 @@ if (user && online[user.name]) {
             }
         });
 
-        
+
     }
     else{
         req.flash('adminhome','You are Admin')
@@ -167,7 +174,7 @@ if (user && online[user.name]) {
 
 
 
-    
+
 }
 else {
     // Grab any messages being sent to us from redirect:
@@ -296,7 +303,7 @@ else{
                     res.redirect('/user/home');
             }
         });
-       
+
     }
 
 }
@@ -315,7 +322,7 @@ if(!m){
 }
 else{
     console.log('user id is: '+user._id);
-    
+
         model.punch(user.name,m,function(err,u){
             if(err){
                 console.log(err);
@@ -327,8 +334,8 @@ else{
                     res.redirect('/user/home');
             }
         });
-       
-    
+
+
 
 }
 
