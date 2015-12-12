@@ -1,0 +1,32 @@
+/* CSS for the main homepage for public users */
+
+#splashCover {
+  padding-top: 5%;
+  background-image: url('/imgs/header.png');
+}
+
+#signUpButton {
+  margin-top: 25px;
+}
+
+#arrowDown {
+  color: white;
+  display: block;
+  text-align: center;
+  margin-top: 85px;
+}
+
+body {
+  font-family: 'avenir';
+}
+
+#splashCover h1 {
+  font-size: 3em !important;
+  text-align: center;
+  color: white !important;
+}
+
+#splashCover p {
+  text-align: center;
+  color: white !important;
+}
