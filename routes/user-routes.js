@@ -225,6 +225,12 @@ else {
 });
 
 //================================================================
+
+router.get('/about', (req, res) => {
+  res.render('about',{ layout:'usermain'} );
+});
+
+//================================================================
 router.post('/changeemail', (req, res) =>{
   var user = req.session.user;
   var email = req.body.email;
