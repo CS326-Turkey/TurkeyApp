@@ -544,48 +544,47 @@ router.post('/check_security', (req, res) => {
 
 //=================================================================
 
-router.post('/findcharity', (req, res) =>{
+router.post('/findcharity', (req, res) => {
   var user = req.session.user;
   var charity = req.body.charity;
 
-  if(!charity){
+  if (!charity) {
     console.log("missing input");
     //req.flash('profile','Missing input!!!');
     res.redirect('/user/dash');
   }
-  else{
+  else {
     //console.log('user id is: '+user._id);
     if (user && online[user.name]) {
-
       var message = req.flash('dash') || '';
-      if(!user.admin){
-        db.getCollection({charity_name:charity, user_id: user._id},db.Transaction, function(error, c){
-          if(error){
+      if (!user.admin) {
+        db.getCollection({charity_name:charity, user_id: user._id}, db.Transaction, function(error, c) {
+          if (error) {
             console.log(error);
           }
-          else{
-            if(c!=null){
-              if(c.length>0){
-                res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
-                message : message ,
-                name: user.name,
-                transaction: c});
+          else {
+            if (c!=null) {
+              if (c.length>0) {
+                var charities = model.getCharities( function(listCharities) {
+                  res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
+                  charity-error : message,
+                  name: user.name,
+                  charity : listCharities,
+                  transaction: c });
+                });
               }
-              else{
-                req.flash('dash','Found Nothing about "'+ charity+'"');
+              else {
+                req.flash('dash','Found Nothing about "'+ charity + '"');
                 res.redirect('/user/dash');
               }
-
             }
-
           }
         });
       }
-      else{
+      else {
         req.flash('dash','You are Admin, not regular user :D');
         res.redirect('/user/dash');
       }
-
     }
     else {
       // Grab any messages being sent to us from redirect:

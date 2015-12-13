@@ -81,10 +81,16 @@
 </div>
 
 <div class="searchTool">
-	<span style="color:red">{{message}}</span>
+	<span style="color:red">{{charity-error}}</span>
 	<h4>Search for Transactions</h4>
 	<form class="form-inline" method="post" action="/user/findcharity"><div class="form-group">
-		<input class="form-control" type="text" name="charity" placeholder='Charity Name'> <br></div>
+		<label for="selectCharity">Select Charity:</label>
+		<select name="charity" class="form-control">
+			{{#each charity}}
+			<option>{{name}}</option>
+			{{/each}}
+		</select>
+		<!--<input class="form-control" type="text" name="charity" placeholder='Charity Name'> <br></div>-->
 		<button class="btn btn-primary">Search Charity</button>
 	</form>
 </div>
