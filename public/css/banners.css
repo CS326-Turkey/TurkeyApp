@@ -1,0 +1,21 @@
+/*
+//  banners.css
+//
+//  CSS for banners throughout the application
+//
+*/
+
+.bannerHeader {
+  padding: 20px;
+  padding-bottom: 0;
+  background-color: #339933;
+}
+
+.bannerHeader p {
+  font-family: avenir;
+  color: white;
+  text-align:left;
+  font-size: 2.8em;
+  padding-top: 5px;
+  padding-bottom: 25px;
+}
