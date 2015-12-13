@@ -29,24 +29,7 @@ var morgan = require('morgan');
 
 // user database
 var db = require('./lib/database.js');
-////////////////////////////////////////////////////////////////////////
-//test database.js
-// db.getCollection({},db.User,function(err,users){
-// 	if(err){
-// 		console.log('error')
-// 	}
-// 	else{
-// 		var list={};
-// 		users.forEach(function(user){
-// 			list[user._id]=user;
-// 			//console.log(user);
-// 		});
-// console.log(list);
-// 	}
-// });
-//db.addTransaction('5655157cffee0a7014017884', '5655157cffee0a7014017884' , 2.5 , "Amazon", "FakeCharity");
 
-///////////////////////////////////////////////////////////////////////
 /*------------*/
 /* Create App */
 /*------------*/
@@ -144,9 +127,6 @@ app.get('/team*', (req, res) => {
 	}
 });
 
-// /*-------------------------*/
-// /*  Need to decide Router  */
-// /*-------------------------*/
 app.get('/', (req, res) => {
 
   var user = req.session.user;

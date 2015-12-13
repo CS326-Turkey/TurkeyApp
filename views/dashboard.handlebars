@@ -55,18 +55,30 @@
 				</tbody>
 			</table>
 		</div>
-</div>
+	</div>
 </div>
 
 
-<!--<div class="searchTool">
+<div class="searchTool">
 	<span style="color:red">{{message}}</span>
 	<h4>Add a Transaction</h4>
-	<form class="form-inline" method="post" action="#"><div class="form-group">
-		<input class="form-control" type="text" name="#" placeholder='Transaction Amount'> <br></div>
-		<button class="btn btn-primary">Search Charity</button>
+	<form class="form-inline" method="post" action="/user/addTransaction">
+		<div class="form-group">
+			<label for="selectCharity">Select Charity:</label>
+			<select name="charityName" class="form-control">
+				{{#each charity}}
+				<option>{{name}}</option>
+				{{/each}}
+			</select>
+			<label class="sr-only" name="transaction" for="addTransaction">Amount (in dollars)</label>
+			<div class="input-group">
+				<div class="input-group-addon">$</div>
+				<input type="text" class="form-control" name="total" placeholder="Amount">
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Add Transaction</button>
 	</form>
-</div>-->
+</div>
 
 <div class="searchTool">
 	<span style="color:red">{{message}}</span>

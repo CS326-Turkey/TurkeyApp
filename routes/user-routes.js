@@ -23,6 +23,9 @@ var db = require('../lib/database.js');
 
 var team = require('../lib/team.js');
 
+// regular expressions for user input
+var Regex = require("regex");
+
 //=================================================================
 
 // Provides a login view
@@ -103,20 +106,22 @@ router.get('/dash', (req, res) => {
 
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
-    if(!(user.admin)){
+    if (!(user.admin)) {
       var message = req.flash('dash') || '';
-      model.getUserTransactions(user._id,function(error, trac){
-        if (error){
+      model.getUserTransactions(user._id,function(error, trac) {
+        if (error) {
           req.flash('dash', error);
           res.redirect('/user/home');
-        } else{
-          res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
-          message : message ,
-          name: user.name,
-          transaction: trac});
+        } else {
+          var charities = model.getCharities( function(listCharities) {
+            res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
+            message : message,
+            name: user.name,
+            charity : listCharities,
+            transaction: trac });
+          });
         }
-      }
-    );
+      });
   }
   else{
     req.flash('adminhome','You are Admin')
@@ -306,9 +311,19 @@ router.post('/addcard', (req, res) => {
   }
 });
 
-/*router.post('/addTransaction', (req, res) => {
+//=================================================================
+
+router.post('/addTransaction', (req, res) => {
   var user = req.session.user;
-}*/
+
+  var userid = req.session.user;
+  var total = (Number)(req.body.total);
+  console.log('Total is: ' + total);
+  var charityName = req.body.charityName;
+  model.addTransaction(userid, total, charityName);
+  req.flash('dashboard', 'Transaction Added!');
+  res.redirect('/user/dash');
+});
 
 //=================================================================
 
