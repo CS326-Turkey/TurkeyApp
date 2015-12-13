@@ -74,7 +74,7 @@ router.get('/home', (req, res) => {
           res.render('userhome', { title   : 'User Home',
           layout: 'usermain',
           message : message ,
-          name: user.name.toUpperCase(),
+          name: user.name,
           donated: user.donated,
           available: user.available,punchmessage:punchmessage
         });
@@ -112,7 +112,7 @@ router.get('/dash', (req, res) => {
         } else{
           res.render('dashboard', { title   : 'Dashboard', layout:'usermain',
           message : message ,
-          name: user.name.toUpperCase(),
+          name: user.name,
           transaction: trac});
         }
       }
@@ -160,7 +160,7 @@ router.get('/profile', (req, res) => {
           var message = req.flash('profile') || '';
           res.render('profile', { title   : 'Profile', layout:'usermain',
           message : message ,
-          name: user.name.toUpperCase(),
+          name: user.name,
           first: user.first,
           last: user.last,
           email:user.email});
