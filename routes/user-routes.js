@@ -567,7 +567,7 @@ router.post('/findcharity', (req, res) => {
               if (c.length>0) {
                 var charities = model.getCharities( function(listCharities) {
                   res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
-                  charity-error : message,
+                  charityError : message,
                   name: user.name,
                   charity : listCharities,
                   transaction: c });
