@@ -95,7 +95,7 @@ else {
 }
 });
 
-//===============================================================
+//=================================================================
 
 router.get('/dash', (req, res) => {
   // Grab the session if the user is logged in.
@@ -130,7 +130,7 @@ else {
 }
 });
 
-//=============================================================
+//=================================================================
 
 router.get('/profile', (req, res) => {
   // Grab the session if the user is logged in.
@@ -181,7 +181,7 @@ router.get('/profile', (req, res) => {
   }
 });
 
-//================================================================
+//=================================================================
 
 router.get('/team', (req, res) => {
   // Grab the session if the user is logged in.
@@ -225,7 +225,7 @@ else {
 }
 });
 
-//================================================================
+//=================================================================
 
 router.get('/about', (req, res) => {
 
@@ -245,68 +245,72 @@ router.get('/about', (req, res) => {
   }
   });
 
-//================================================================
+//=================================================================
 
-router.post('/changeemail', (req, res) =>{
+router.post('/changeemail', (req, res) => {
   var user = req.session.user;
   var email = req.body.email;
   model.changeEmail(user.name, email);
   req.flash('profile','Changes Saved ');
   res.redirect('/user/profile');
 });
-router.post('/changefirstname', (req, res) =>{
+router.post('/changefirstname', (req, res) => {
   var user = req.session.user;
   var name = req.body.name;
   model.changeFirstName(user.name, name);
   req.flash('profile','Changes Saved ');
   res.redirect('/user/profile');
 });
-router.post('/changelastname', (req, res) =>{
+router.post('/changelastname', (req, res) => {
   var user = req.session.user;
   var name = req.body.name;
   model.changeLastName(user.name, name);
   req.flash('profile','Changes Saved ');
   res.redirect('/user/profile');
 });
-router.post('/changepass', (req, res) =>{
+router.post('/changepass', (req, res) => {
   var user = req.session.user;
   var oldpass = req.body.oldpass;
   var newpass = req.body.newpass;
   var confirmpass = req.body.confirmpass;
-  if(oldpass!==user.pass){
+  if (oldpass!==user.pass) {
     console.log('pass: '+user.pass);
     req.flash('profile','Wrong password');
     res.redirect('/user/profile');
   }
-  else if(confirmpass!==newpass){
+  else if(confirmpass!==newpass) {
     req.flash('profile','Passwords not matched');
     res.redirect('/user/profile');
-  }else{
+  } else {
     model.changePass(user.name, newpass);
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
   }
-
 });
-router.post('/addcard', (req, res) =>{
+router.post('/addcard', (req, res) => {
   var user = req.session.user;
   var cardnumber = req.body.cardnumber;
   var cardholder = req.body.cardholder;
   var exp = req.body.exp;
   var sc = req.body.sc;
-  if(!cardnumber||!cardholder||!exp||!sc){
+  if (!cardnumber||!cardholder||!exp||!sc){
     console.log("missing input");
     req.flash('profile','Missing input!!!');
     res.redirect('/user/profile');
   }
-  else{
+  else {
     console.log('user id is: '+user._id);
     model.addCard(user._id, cardholder,exp,sc, cardnumber);
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
   }
-
 });
+
+/*router.post('/addTransaction', (req, res) => {
+  var user = req.session.user;
+}*/
+
+//=================================================================
 
 router.post('/punch', (req, res) =>{
   var user = req.session.user;
@@ -335,18 +339,15 @@ router.post('/punch', (req, res) =>{
           res.redirect('/user/home');
         }
       });
-
     }
-
   }
-
 });
-//============================================
+
+//=================================================================
+
 router.post('/donate', (req, res) =>{
   var user = req.session.user;
   var m = req.body.m;
-
-
 
   if(!m){
     req.flash('punch','Please confirm');
@@ -366,15 +367,11 @@ router.post('/donate', (req, res) =>{
         res.redirect('/user/home');
       }
     });
-
-
-
   }
-
 });
 
-
 //================================================================
+
 // Performs **basic** user authentication.
 router.post('/auth', (req, res) => {
   // Grab the session if the user is logged in.
@@ -422,7 +419,7 @@ router.post('/auth', (req, res) => {
   }
 });
 
-//=======================================================================
+//=================================================================
 
 // Performs logout functionality - it does nothing!
 router.get('/logout', function(req, res) {
@@ -445,7 +442,8 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-//======================================================
+//=================================================================
+
 router.get('/check_user_info', (req, res) =>{
   var msg = req.flash('check_user_info') || '';
   res.render('check_user_info', {message : msg});
@@ -463,7 +461,8 @@ router.get('/forgot', (req, res)=> {
   }
 });
 
-//===========================================
+//=================================================================
+
 router.post('/auth_forget', (req, res) =>{
   var user = req.session.user;
   if (user && online[user.name]) {
@@ -490,6 +489,8 @@ router.post('/auth_forget', (req, res) =>{
     }
   }
 });
+
+//=================================================================
 
 //check the security question
 router.post('/check_security', (req, res) => {
@@ -526,9 +527,7 @@ router.post('/check_security', (req, res) => {
   }
 });
 
-
-module.exports = router;
-
+//=================================================================
 
 router.post('/findcharity', (req, res) =>{
   var user = req.session.user;
@@ -579,5 +578,6 @@ router.post('/findcharity', (req, res) =>{
       res.redirect('/user/login');
     }
   }
-
 });
+
+module.exports = router;

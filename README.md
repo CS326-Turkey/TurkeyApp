@@ -43,6 +43,10 @@ node app.js
   * https://github.com/expressjs/morgan.git
   * used for logging HTTP requests
 
+  ``regex``
+  * https://www.npmjs.com/package/regex
+  * regular expressions for parsing user input
+
 ## Views
 
 ``home``
