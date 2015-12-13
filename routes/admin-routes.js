@@ -199,8 +199,21 @@ else {
 //=================================================================
 
 router.get('/about', (req, res) => {
-  res.render('about',{ layout:'adminmain'} );
-});
+	// Grab the session if the user is logged in.
+	var user = req.session.user;
+
+	// Redirect to main if session and user is online:
+	if (user && online[user.name] && user.admin) {
+		res.render('about',{ layout:'adminmain' } );
+	}
+	else if (user && online[user.name]) {
+		res.redirect('/user/about');
+	}
+	else {
+		req.flash('login', 'You are not logged in')
+		res.redirect('/user/login');
+	}
+	});
 
 //================================================================
 

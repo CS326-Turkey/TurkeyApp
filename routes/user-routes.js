@@ -189,25 +189,26 @@ router.get('/team', (req, res) => {
 
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
-    if(!(user.admin)){
-      if(Object.keys(req.query).length === 0){
-        if(req.path==='/team'||req.path==='/team/'){
+    if (!(user.admin)){
+      if (Object.keys(req.query).length === 0){
+        if (req.path==='/team'||req.path==='/team/'){
           var result = team.all();
         }
-        else{
+        else {
           res.status(404);
           res.render('404');
         }
       }
-      else{
+      else {
         var result = team.one(req.query.user);
       }
-      if(result.count!==0){
-        res.render('team', {layout: 'usermain',
-        members: result.data,
+      if (result.count!==0){
+        res.render('team', { layout : 'usermain',
+        members : result.data,
+        name : user.name
       });
     }
-    else{
+    else {
       res.status(404);
       res.render('404');
     }
@@ -227,8 +228,22 @@ else {
 //================================================================
 
 router.get('/about', (req, res) => {
-  res.render('about',{ layout:'usermain'} );
-});
+
+  // Grab the session if the user is logged in.
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user.name] && !user.admin) {
+    res.render('about', { layout:'usermain', name : user.name } );
+  }
+  else if (user && online[user.name] && user.admin) {
+    res.redirect('/admin/about');
+  }
+  else {
+    req.flash('login', 'You are not logged in')
+    res.redirect('/user/login');
+  }
+  });
 
 //================================================================
 
