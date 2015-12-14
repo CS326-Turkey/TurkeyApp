@@ -341,6 +341,8 @@ router.post('/addPurchase', (req, res) => {
   var amt = (Number)(req.body.amount);
   console.log('Total is: ' + amt);
   var merchant = req.body.merchant;
+  console.log('The username in routes is ' + userid.name);
+  model.updateAvailable(userid.name, amt);
   model.addPurchase(userid, merchant, amt);
   req.flash('dashboard', 'Transaction Added!');
   res.redirect('/user/dash');
