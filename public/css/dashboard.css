@@ -9,13 +9,13 @@ p {
   font-family: avenir;
 }
 
-#transactions {
+.userInfo {
   margin-left: 5%;
   margin-right: 5%;
   padding: 5px;
 }
 
-#transactions .chart {
+.userInfo .chart {
   height: 400px;
   line-height: 3em;
   overflow: auto;

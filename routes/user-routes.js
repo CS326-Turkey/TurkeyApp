@@ -108,17 +108,25 @@ router.get('/dash', (req, res) => {
   if (user && online[user.name]) {
     if (!(user.admin)) {
       var message = req.flash('dash') || '';
-      model.getUserTransactions(user._id,function(error, trac) {
+      model.getUserTransactions(user._id, function(error, trac) {
         if (error) {
           req.flash('dash', error);
           res.redirect('/user/home');
         } else {
           var charities = model.getCharities( function(listCharities) {
-            res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
-            message : message,
-            name: user.name,
-            charity : listCharities,
-            transaction: trac });
+            var purchases = model.getUserPurchases(user._id, function(error, listPurchases) {
+              if (error) {
+                req.flash('dash', error);
+                res.redirect('/user/home');
+              } else {
+                res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
+                message : message,
+                name: user.name,
+                charity : listCharities,
+                transaction : trac,
+                purchase : listPurchases });
+              }
+            });
           });
         }
       });
@@ -318,9 +326,22 @@ router.post('/addTransaction', (req, res) => {
 
   var userid = req.session.user;
   var total = (Number)(req.body.total);
-  console.log('Total is: ' + total);
   var charityName = req.body.charityName;
   model.addTransaction(userid, total, charityName);
+  req.flash('dashboard', 'Transaction Added!');
+  res.redirect('/user/dash');
+});
+
+//=================================================================
+
+router.post('/addPurchase', (req, res) => {
+  var user = req.session.user;
+
+  var userid = req.session.user;
+  var amt = (Number)(req.body.amount);
+  console.log('Total is: ' + amt);
+  var merchant = req.body.merchant;
+  model.addPurchase(userid, merchant, amt);
   req.flash('dashboard', 'Transaction Added!');
   res.redirect('/user/dash');
 });
