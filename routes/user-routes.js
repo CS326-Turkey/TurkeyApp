@@ -325,9 +325,15 @@ router.post('/addTransaction', (req, res) => {
   var user = req.session.user;
 
   var userid = req.session.user;
-  var total = (Number)(req.body.total);
+  var amt = (Number)(req.body.total);
   var charityName = req.body.charityName;
-  model.addTransaction(userid, total, charityName);
+  if (model.updateDonated(userid.name, amt) === -1) {
+    flash('dashboard', 'Insufficient Funds');
+    res.redirect('/user/dash');
+    return;
+  }
+  model.updateAvailable(userid.name, -amt);
+  model.addTransaction(userid, amt, charityName);
   req.flash('dashboard', 'Transaction Added!');
   res.redirect('/user/dash');
 });
