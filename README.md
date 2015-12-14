@@ -51,11 +51,8 @@ node app.js
 ``login``
   * Login screen for users seeking to sign-in to Glean. If users forget their password, a link to reset a user's password is accessible from the page.
 
-``check_user_info``
-  * first page of Forget Password screen. ask user to enter their existed user name and email address, and click on Next to get corresponding security code for 'forgotpassword' view use.
-
-``forgotpassword``
-  * Another page for Forget Password screen. Collect user's name and email information from 'check_user_info' view, and provide a security question for user to answer. Once the answer for the security question is approved from the database data, the password of the user would be  noticed on the screen.
+``forgotPassword``
+ * ForgotPassword view is used to help user to find their passwords. When user forget their passwords, they can go to forgot password page and enter their infomation, and then the server find the password.
 
 ``dashboard``
  * Dashboard view shows some Statistics of the user.
@@ -84,17 +81,14 @@ node app.js
 ``505``
   * It shows when there is an error.
 
-=======
+``check_user_info``
+  * It confirms the information of the user for finding password.
 
->>>>>>> edited Makefile for forgotpass word view
 ``team``
   * Profiles of all team members.
 
 *A summary of each of the views in your application and its purpose.*
 ## Statefulness
-
-There are three states: logged in as users, logged in as admin and non-logged in. When the user is non-logged in, he can only go to the regular homepage, team view, log in view, register view, forget password view and about view. When the user is logged in as a user, he can go to the views just mentioned plus dashboard view and profile view. When the user is logged in as an admin, he can go to the views for non-logged-in users plus admin view. 
-There are two js files for routing. One is user-route.js and the other is admin-rount.js. They are in the directory called route. user-route.js handles the routes to the view only for users. admin-rount.js handles the routes to the view only for admin. 
 *Provide a detailed writeup of how your application uses sessions to maintain statefulness. You must make references to specific files in your project repository and links to the associated files. We will be reviewing your work through github and using the README.md file as an entry point.*
 
 ## Persistence
