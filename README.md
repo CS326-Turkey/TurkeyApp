@@ -91,7 +91,6 @@ node app.js
 ``team``
   * Profiles of all team members.
 
-
 ## Session States
 
 There are three states: logged in as users, logged in as admin and not-logged in.

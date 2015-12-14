@@ -10,11 +10,15 @@
 <div style="padding:50px">
     <h1>Forgot Password Page</h1>
 
-    <div style = "background-color:red; color:black">{{message}}</div><br>
+    <h3><span class="label label-danger">{{message}}</span></h3>
 
     <form method="post" action="/user/auth_forget">
-        Enter your User Name: <input type = "text" name = "user_name"><br>
-        Enter your email address: <input type = "text" name = "email"><br>
-        <button>Next</button>
+      <div class="form-group has-success" style="border-radius:10px; border:2px padding:20px;width:300px" align='left'>
+        <label for="user_name">Enter your User Name: </label><br>
+        <input class="form-control" id="inputSuccess1" type = "text" name = "user_name"><br>
+        <label for="email"> Enter your email address: </label><br>
+        <input class="form-control" id="inputSuccess1" type = "text" name = "email"><br><br>
+        <button class = "btn btn-success">Next</button>
+      </div>
     </form>
 </div>
