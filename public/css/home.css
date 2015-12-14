@@ -1,0 +1,73 @@
+/*
+//  home.css
+//
+//  CSS for main homepage (public users)
+//
+*/
+
+#splashCover {
+  padding-top: 5%;
+  background-color: #339933;
+  /*background-image: url('/imgs/header.png');*/
+}
+
+#signUpButton {
+  margin-top: 25px;
+}
+
+#arrowDown {
+  color: white;
+  display: block;
+  font-size: 2.5em;
+  text-align: center;
+  margin-top: 85px;
+}
+
+body {
+  font-family: 'avenir';
+}
+
+p {
+  font-size: 1.8em;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+#splashCover h1 {
+  font-size: 3.5em !important;
+  text-align: center;
+  color: white !important;
+}
+
+#splashCover p {
+  font-size: 1.8em;
+  text-align: center;
+  color: white !important;
+}
+
+.blurb {
+  margin-top: 50px;
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.glance {
+  padding-left:10%;
+  padding-right:10%;
+  padding-top:50px;
+  padding-bottom: 50px;
+}
+
+.colorOne {
+  background-color: #99FF66;
+}
+
+.colorTwo {
+  background-color: #66CC33;
+}
+
+.colorThree {
+  background-color: #339933;
+}

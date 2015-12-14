@@ -1,3 +1,10 @@
+/*
+//  user-routes.js
+//
+//  Routes accessible by registered users.
+//
+*/
+
 //Most of the code is from individual assignment 3, cs326, Tim Richards
 
 var express = require('express');
@@ -11,6 +18,13 @@ var router = express.Router();
 
 // A list of users who are online:
 var online = require('../lib/online').online;
+
+var db = require('../lib/database.js');
+
+var team = require('../lib/team.js');
+
+// regular expressions for user input
+var Regex = require("regex");
 
 //=================================================================
 
@@ -27,37 +41,64 @@ router.get('/login', (req, res) => {
     // Grab any messages being sent to us from redirect:
     var message = req.flash('login') || '';
     res.render('login', { title   : 'User Login',
-                          message : message });
-  }
+    message : message
+  });
+}
 });
 
 //=================================================================
 
-router.get('/userhome', (req, res) => {
+router.get('/home', (req, res) => {
   // Grab the session if the user is logged in.
   var user = req.session.user;
+  var name=user.name;
+  var pass=user.pass;
 
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
     if(!(user.admin)){
-    var message = req.flash('userhome') || '';
-    res.render('userhome', { title   : 'User Home',
-                          message : message ,
-                      		name: user.name});
+
+      model.lookup(name, pass, function(error, user) {
+        if (error) {
+          // Pass a message to login:
+          req.flash('login', error);
+          res.redirect('/user/login');
+        }
+        else {
+          // add the user to the map of online users:
+          online[user.name] = user;
+
+          // create a session variable to represent stateful connection
+          req.session.user = user;
+
+
+          var message = req.flash('userhome') || '';
+          var punchmessage = req.flash('punch') || '';
+          res.render('userhome', { title   : 'User Home',
+          layout: 'usermain',
+          message : message ,
+          name: user.name,
+          donated: user.donated,
+          available: user.available,punchmessage:punchmessage
+        });
+      }
+    });
+
+
   }
   else{
-	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+    req.flash('adminhome','You are Admin')
+    res.redirect('/admin/home');
   }
-    }
-    else {
-      // Grab any messages being sent to us from redirect:
-      req.flash('login', 'You are not logged in')
-      res.redirect('/user/login');
-    }
+}
+else {
+  // Grab any messages being sent to us from redirect:
+  req.flash('login', 'You are not logged in')
+  res.redirect('/user/login');
+}
 });
 
-//===============================================================
+//=================================================================
 
 router.get('/dash', (req, res) => {
   // Grab the session if the user is logged in.
@@ -65,25 +106,36 @@ router.get('/dash', (req, res) => {
 
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
-    if(!(user.admin)){
-    var message = req.flash('dash') || '';
-    res.render('dashboard', { title   : 'Dashboard',
-                          message : message ,
-                      		name: user.name});
+    if (!(user.admin)) {
+      var message = req.flash('dash') || '';
+      model.getUserTransactions(user._id,function(error, trac) {
+        if (error) {
+          req.flash('dash', error);
+          res.redirect('/user/home');
+        } else {
+          var charities = model.getCharities( function(listCharities) {
+            res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
+            message : message,
+            name: user.name,
+            charity : listCharities,
+            transaction: trac });
+          });
+        }
+      });
   }
   else{
-	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+    req.flash('adminhome','You are Admin')
+    res.redirect('/admin/home');
   }
-    }
-    else {
-      // Grab any messages being sent to us from redirect:
-      req.flash('login', 'You are not logged in')
-      res.redirect('/user/login');
-    }
+}
+else {
+  // Grab any messages being sent to us from redirect:
+  req.flash('login', 'You are not logged in')
+  res.redirect('/user/login');
+}
 });
 
-//=============================================================
+//=================================================================
 
 router.get('/profile', (req, res) => {
   // Grab the session if the user is logged in.
@@ -91,120 +143,250 @@ router.get('/profile', (req, res) => {
 
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
-    if(!(user.admin)){
-    var message = req.flash('profile') || '';
-    res.render('profile', { title   : 'Profile',
-                          message : message ,
-                      		name: user.name,
-                          first: user.first,
-                          last: user.last,
-                          email:user.email});
+    ///////////////////////////
+    var name=user.name;
+    var pass=user.pass;
+    model.lookup(name, pass, function(error, user) {
+      if (error) {
+        // Pass a message to login:
+        req.flash('login', error);
+        res.redirect('/user/login');
+      }
+      else {
+        // add the user to the map of online users:
+        online[user.name] = user;
+
+        // create a session variable to represent stateful connection
+        req.session.user = user;
+
+
+
+        if(!(user.admin)){
+          var message = req.flash('profile') || '';
+          res.render('profile', { title   : 'Profile', layout:'usermain',
+          message : message ,
+          name: user.name,
+          first: user.first,
+          last: user.last,
+          email:user.email});
+        }
+        else{
+          req.flash('adminhome','You are Admin')
+          res.redirect('/admin/home');
+        }
+
+      }
+    });
+
   }
-  else{
-	 req.flash('adminhome','You are Admin')
-	 res.redirect('/admin/adminhome');
+  else {
+    // Grab any messages being sent to us from redirect:
+    req.flash('login', 'You are not logged in')
+    res.redirect('/user/login');
   }
-    }
-    else {
-      // Grab any messages being sent to us from redirect:
-      req.flash('login', 'You are not logged in')
-      res.redirect('/user/login');
-    }
 });
 
 //=================================================================
 
-router.get('/home', (req, res) => {
-	var user = req.session.user;
-	if(!user){
-		var message = req.flash('home') || '';
-		 res.render('home', { title   : 'Home Page',
-                          message : message,
-                         });
-	}
-	else{
-		if(!online[user.name]){
-			var message = req.flash('home') || '';
-		 res.render('home', { title   : 'Home Page',
-                          message : message ,
-                          });
-		}
-		else{
-			if(!(user.admin)){
-				req.flash('userhome', 'You are logged in as a user');
-				res.redirect('/user/userhome');
-			}
-			else{
-				req.flash('adminhome', 'You are logged in as an admin');
-				res.redirect('/admin/adminhome');
-			}
-		}
-	}
+router.get('/team', (req, res) => {
+  // Grab the session if the user is logged in.
+  var user = req.session.user;
 
+  // Redirect to main if session and user is online:
+  if (user && online[user.name]) {
+    if (!(user.admin)){
+      if (Object.keys(req.query).length === 0){
+        if (req.path==='/team'||req.path==='/team/'){
+          var result = team.all();
+        }
+        else {
+          res.status(404);
+          res.render('404');
+        }
+      }
+      else {
+        var result = team.one(req.query.user);
+      }
+      if (result.count!==0){
+        res.render('team', { layout : 'usermain',
+        members : result.data,
+        name : user.name
+      });
+    }
+    else {
+      res.status(404);
+      res.render('404');
+    }
+  }
+  else {
+    req.flash('adminhome','You are Admin')
+    res.redirect('/admin/home');
+  }
+}
+else {
+  // Grab any messages being sent to us from redirect:
+  req.flash('login', 'You are not logged in')
+  res.redirect('/user/login');
+}
 });
 
-//================================================================
-router.post('/changeemail', (req, res) =>{
-    var user = req.session.user;
-    var email = req.body.email;
-    model.changeEmail(user.name, email);
+//=================================================================
+
+router.get('/about', (req, res) => {
+
+  // Grab the session if the user is logged in.
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user.name] && !user.admin) {
+    res.render('about', { layout:'usermain', name : user.name } );
+  }
+  else if (user && online[user.name] && user.admin) {
+    res.redirect('/admin/about');
+  }
+  else {
+    req.flash('login', 'You are not logged in')
+    res.redirect('/user/login');
+  }
+  });
+
+//=================================================================
+
+router.post('/changeemail', (req, res) => {
+  var user = req.session.user;
+  var email = req.body.email;
+  model.changeEmail(user.name, email);
+  req.flash('profile','Changes Saved ');
+  res.redirect('/user/profile');
+});
+router.post('/changefirstname', (req, res) => {
+  var user = req.session.user;
+  var name = req.body.name;
+  model.changeFirstName(user.name, name);
+  req.flash('profile','Changes Saved ');
+  res.redirect('/user/profile');
+});
+router.post('/changelastname', (req, res) => {
+  var user = req.session.user;
+  var name = req.body.name;
+  model.changeLastName(user.name, name);
+  req.flash('profile','Changes Saved ');
+  res.redirect('/user/profile');
+});
+router.post('/changepass', (req, res) => {
+  var user = req.session.user;
+  var oldpass = req.body.oldpass;
+  var newpass = req.body.newpass;
+  var confirmpass = req.body.confirmpass;
+  if (oldpass!==user.pass) {
+    console.log('pass: '+user.pass);
+    req.flash('profile','Wrong password');
+    res.redirect('/user/profile');
+  }
+  else if(confirmpass!==newpass) {
+    req.flash('profile','Passwords not matched');
+    res.redirect('/user/profile');
+  } else {
+    model.changePass(user.name, newpass);
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
+  }
 });
-router.post('/changefirstname', (req, res) =>{
-    var user = req.session.user;
-    var name = req.body.name;
-    model.changeFirstName(user.name, name);
+router.post('/addcard', (req, res) => {
+  var user = req.session.user;
+  var cardnumber = req.body.cardnumber;
+  var cardholder = req.body.cardholder;
+  var exp = req.body.exp;
+  var sc = req.body.sc;
+  if (!cardnumber||!cardholder||!exp||!sc){
+    console.log("missing input");
+    req.flash('profile','Missing input!!!');
+    res.redirect('/user/profile');
+  }
+  else {
+    console.log('user id is: '+user._id);
+    model.addCard(user._id, cardholder,exp,sc, cardnumber);
     req.flash('profile','Changes Saved ');
     res.redirect('/user/profile');
+  }
 });
-router.post('/changelastname', (req, res) =>{
-    var user = req.session.user;
-    var name = req.body.name;
-    model.changeLastName(user.name, name);
-    req.flash('profile','Changes Saved ');
-    res.redirect('/user/profile');
+
+//=================================================================
+
+router.post('/addTransaction', (req, res) => {
+  var user = req.session.user;
+
+  var userid = req.session.user;
+  var total = (Number)(req.body.total);
+  console.log('Total is: ' + total);
+  var charityName = req.body.charityName;
+  model.addTransaction(userid, total, charityName);
+  req.flash('dashboard', 'Transaction Added!');
+  res.redirect('/user/dash');
 });
-router.post('/changepass', (req, res) =>{
-    var user = req.session.user;
-    var oldpass = req.body.oldpass;
-    var newpass = req.body.newpass;
-    var confirmpass = req.body.confirmpass;
-    if(oldpass!==user.pass){
-      console.log('pass: '+user.pass);
-        req.flash('profile','Wrong password');
-      res.redirect('/user/profile');
-    }
-     else if(confirmpass!==newpass){
-      req.flash('profile','Passwords not matched');
-    res.redirect('/user/profile');
-    }else{
-       model.changePass(user.name, newpass);
-    req.flash('profile','Changes Saved ');
-    res.redirect('/user/profile');
-    }
-   
-});
-router.post('/addcard', (req, res) =>{
-    var user = req.session.user;
-    var cardnumber = req.body.cardnumber;
-    var cardholder = req.body.cardholder;
-    var exp = req.body.exp;
-    var sc = req.body.sc; 
-    if(!cardnumber||!cardholder||!!exp||!sc){
-      console.log("missing input");
-      req.flash('profile','Missing input!!!');
-    res.redirect('/user/profile');
+
+//=================================================================
+
+router.post('/punch', (req, res) =>{
+  var user = req.session.user;
+  var confirm = req.body.confirm;
+
+
+  if(!confirm){
+    req.flash('punch','Please confirm');
+    res.redirect('/user/home');
+  }
+  else{
+    console.log('user id is: '+user._id);
+    if(confirm!=='yes'){
+      req.flash('punch','Please confirm');
+      res.redirect('/user/home');
     }
     else{
-      model.addCard(user.id, cardholder,exp,sc, cardnumber);
-    req.flash('profile','Changes Saved ');
-    res.redirect('/user/profile');
+      model.punch(user.name,10,function(err,u){
+        if(err){
+          console.log(err);
+          req.flash('punch','Less Than $10 Available!');
+          res.redirect('/user/home');
+        }
+        else{
+          req.flash('punch','Done!');
+          res.redirect('/user/home');
+        }
+      });
     }
-    
+  }
+});
+
+//=================================================================
+
+router.post('/donate', (req, res) =>{
+  var user = req.session.user;
+  var m = req.body.m;
+
+  if(!m){
+    req.flash('punch','Please confirm');
+    res.redirect('/user/home');
+  }
+  else{
+    console.log('user id is: '+user._id);
+
+    model.punch(user.name,m,function(err,u){
+      if(err){
+        console.log(err);
+        req.flash('punch','Less Than $10 Available!');
+        res.redirect('/user/home');
+      }
+      else{
+        req.flash('punch','Done!');
+        res.redirect('/user/home');
+      }
+    });
+  }
 });
 
 //================================================================
+
 // Performs **basic** user authentication.
 router.post('/auth', (req, res) => {
   // Grab the session if the user is logged in.
@@ -212,11 +394,11 @@ router.post('/auth', (req, res) => {
 
   // Redirect to main if session and user is online:
   if (user && online[user]) {
-  	if(!(user.admin)){
-    	res.redirect('/user/userhome');
+    if(!(user.admin)){
+      res.redirect('/user/home');
     }
     else{
-      res.redirect('/admin/adminhome');
+      res.redirect('/admin/home');
     }
   }
   else {
@@ -244,15 +426,15 @@ router.post('/auth', (req, res) => {
 
           // Pass a message to main:
           req.flash('userhome', '');
-          req.flash('userhome', 'Authentication successful');
-          res.redirect('/user/userhome');
+          req.flash('userhome', 'Authentication successful!');
+          res.redirect('/user/home');
         }
       });
     }
   }
 });
 
-//=======================================================================
+//=================================================================
 
 // Performs logout functionality - it does nothing!
 router.get('/logout', function(req, res) {
@@ -272,10 +454,11 @@ router.get('/logout', function(req, res) {
   }
 
   // Redirect to login regardless.
-  res.redirect('/user/home');
+  res.redirect('/');
 });
 
-//======================================================
+//=================================================================
+
 router.get('/check_user_info', (req, res) =>{
   var msg = req.flash('check_user_info') || '';
   res.render('check_user_info', {message : msg});
@@ -293,7 +476,8 @@ router.get('/forgot', (req, res)=> {
   }
 });
 
-//===========================================
+//=================================================================
+
 router.post('/auth_forget', (req, res) =>{
   var user = req.session.user;
   if (user && online[user.name]) {
@@ -321,6 +505,8 @@ router.post('/auth_forget', (req, res) =>{
   }
 });
 
+//=================================================================
+
 //check the security question
 router.post('/check_security', (req, res) => {
   var user = req.session.user;
@@ -344,7 +530,7 @@ router.post('/check_security', (req, res) => {
           res.redirect('/user/forgot');
         }else{
           if (ans === answer){
-            req.flash('login', 'Your pass word is ' + pass);
+            req.flash('login', 'Your password is ' + pass);
             res.redirect('/user/login');
           }else{
             req.flash('forgot_password_msg', 'your security answer is not current ');
@@ -356,5 +542,56 @@ router.post('/check_security', (req, res) => {
   }
 });
 
+//=================================================================
+
+router.post('/findcharity', (req, res) => {
+  var user = req.session.user;
+  var charity = req.body.charity;
+
+  if (!charity) {
+    console.log("missing input");
+    //req.flash('profile','Missing input!!!');
+    res.redirect('/user/dash');
+  }
+  else {
+    //console.log('user id is: '+user._id);
+    if (user && online[user.name]) {
+      var message = req.flash('dash') || '';
+      if (!user.admin) {
+        db.getCollection({charity_name:charity, user_id: user._id}, db.Transaction, function(error, c) {
+          if (error) {
+            console.log(error);
+          }
+          else {
+            if (c!=null) {
+              if (c.length>0) {
+                var charities = model.getCharities( function(listCharities) {
+                  res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
+                  charityError : message,
+                  name: user.name,
+                  charity : listCharities,
+                  transaction: c });
+                });
+              }
+              else {
+                req.flash('dash','Found Nothing about "'+ charity + '"');
+                res.redirect('/user/dash');
+              }
+            }
+          }
+        });
+      }
+      else {
+        req.flash('dash','You are Admin, not regular user :D');
+        res.redirect('/user/dash');
+      }
+    }
+    else {
+      // Grab any messages being sent to us from redirect:
+      req.flash('login', 'You are not logged in')
+      res.redirect('/user/login');
+    }
+  }
+});
 
 module.exports = router;

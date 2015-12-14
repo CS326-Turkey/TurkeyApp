@@ -1,11 +1,27 @@
-<header>
-	<a href="/"><img src="\imgs\logo.png" alt="Logo"></a>
-	<h1>Team - Turkey</h1>
-	<h2>Team Member</h2>
-</header>
-<ul>
-  {{#each members}}
-  <li><strong>{{this.fname}} {{this.lname}}</strong> - {{this.year}} <br/> {{this.profile}} </li>
-  <br/>
-  {{/each}}
-</ul>
+<!--
+//  team.handlebars
+//
+//  Template for team page.
+//
+//  Profiles of all team members.
+//
+-->
+
+<link rel="stylesheet" type="text/css" href="/css/team.css" />
+<link rel="stylesheet" type="text/css" href="/css/banners.css"/>
+
+<div class="bannerHeader">
+	<p>Meet the Team</p>
+</div>
+
+<div style="margin-left: 5%; margin-right:5%;padding:20px">
+    <a href="/"><img src="\imgs\logo.png" alt="Logo" ></a>
+    <h1>Team - Turkey</h1>
+    <h2>Team Member</h2>
+    <ul>
+        {{#each members}}
+            <li><strong>{{this.fname}} {{this.lname}}</strong> - {{this.year}} <br/> {{this.profile}} </li>
+            <br/>
+        {{/each}}
+    </ul>
+</div>

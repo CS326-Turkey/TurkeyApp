@@ -1,0 +1,53 @@
+/*
+//  dashboard.css
+//
+//  CSS for dashboard
+//
+*/
+
+p {
+  font-family: avenir;
+}
+
+#transactions {
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 5px;
+}
+
+#transactions .chart {
+  height: 400px;
+  line-height: 3em;
+  overflow: auto;
+  padding: 5px;
+  border-radius: 10px;
+  border: 2px solid #009933;
+  LINE-HEIGHT: 20px;
+}
+
+.moduleSection {
+  font-size: 2.0em;
+  font-weight: bold;
+  color: #00802d;
+}
+
+#visualizedResults {
+  color: #00802d;
+  margin-left: 5%;
+  margin-right: 10%;
+  margin-top: 1%;
+  padding: 5px;
+}
+
+#pieChart {
+  margin-left: 15%;
+  margin-right: 10%;
+  margin-top: 1%;
+  padding: 5px;
+}
+
+.searchTool {
+  margin-left: 5%;
+  margin-right: 10%;
+  padding: 5px;
+}

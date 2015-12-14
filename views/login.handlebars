@@ -1,23 +1,29 @@
-<div style="border: solid 1px; padding: 8px;position:fixed; width:100%;background-color:white">
-  <a href ="/" style="margin-left: 50px;margin-right:20px">Home</a>
-  <a href ="/team" style="margin-right:20px">Team</a>
-  <a href ="/about" >About</a>
-	<a href ="/login" style="float:right; margin-right:20px">Log in</a>
-</div>
-<a href = "/" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px"></a>
+<!--
+//  login.handlebars
+//
+//  Template for login page.
+//
+//  Login screen for users seeking to sign-in to Glean.
+//
+//  If users forget their password, a link to reset a user's
+//  password is accessible from the page.
+//
+-->
 
-<div style="padding:50px">
-  <h1>{{title}}</h1>
-  <p>Welcome to {{title}}</p>
+<div style="padding-left:5%;padding-top: 20px;height:500px" >
+    <div style="border-radius:10px; border:2px solid #009933; padding:20px;width:300px" align='center'>
+        <h1>{{title}}</h1>
 
-  <div >{{message}}</div><br>
+        <p>Welcome to {{title}}</p>
 
-  <form method="post" action="/user/auth">
-    User Name: <input type="text" name="name"> <br>
-    Password:  <input type="password" name="pass"> <br>
-    <button>Login</button>
-  </form>
+        <div style="color:red">{{message}}</div><br>
 
-  <br>
-    <a href="/user/check_user_info">Forgot Password</a>
+        <form method="post" action="/user/auth" style="width:220px">
+            <input class="form-control" type="text" name="name" placeholder="User Name" autocomplete="off"> <br><br>
+            <input class="form-control" type="password" name="pass" placeholder="Password" autocomplete="off"> <br><br>
+            <button class="btn btn-success">Login</button>
+        </form>
+        <br>
+        <a href="/user/check_user_info">Forgot Password</a>
+    </div>
 </div>

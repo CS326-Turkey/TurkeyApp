@@ -1,67 +1,187 @@
-<div>
-	
-	<div style="border: solid 1px; padding: 8px;position:fixed;top:0px; width:100%;background-color:white;z-index:999">
+<!--
+//  dashboard.handlebars
+//
+//  Template for dashboard page.
+//
+//  Dashboard showing statistics for the user.
+//
+-->
 
-		<a href ="/user/userhome" style="margin-left: 50px;margin-right:20px">Home</a>
-		<a href ="/team" style="margin-right:20px">Team</a>
-		<a href ="/about" >About</a>
+<link rel="stylesheet" type="text/css" href="/css/dashboard.css"/>
+<link rel="stylesheet" type="text/css" href="/css/banners.css"/>
 
-		<a href ="#" style="float:right; margin-right:20px">Log Out</a>
-		
+<div class="bannerHeader">
+	<p>Dashboard</p>
+</div>
 
+<div id="transactions" >
+	<p style="color:red">{{addadmin}}</p>
+	<p class="moduleSection">All Transactions</p>
+	<div class="chart">
+
+		<div class="container" style='width:100%'>
+			<table id = "myTable" class="table table-hover ">
+				<thead>
+					<tr>
+						<th>Charity Name</th>
+						<th>Date</th>
+						<th>Extra Change</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{{#if findcharity}}
+
+					{{#each ttt}}
+
+					<tr>
+						<td>{{charity_name}}</td>
+						<td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+						<td>${{total}}</td>
+
+					</tr>
+					{{/each}}
+
+					{{else}}
+					{{#each transaction}}
+					<tr>
+						<td>{{charity_name}}</td>
+						<td>{{created_at_year}}-{{created_at_month}}-{{created_at_date}}</td>
+						<td>${{total}}</td>
+
+					</tr>
+					{{/each}}
+					{{/if}}
+				</tbody>
+			</table>
+		</div>
 	</div>
-	
-	
-	<a  href = "/user/userhome" style=""><img src="/imgs/logo.png" alt="Logo" style="position:fixed;top:1px;left:1px;height:34px;z-index:1000"></a>
+</div>
 
-	
-	
-	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px">
-		<p><font size="6"><strong>Choose the organization that you would like to help:  </strong></font></p>
-		<p>	
-			<font size="4">Since today, I would like to donate my money to... </font>
-			<select>
-				<option value="unitedWay">United Way</option>
-				<option value="salvationArmy">Salvation Army</option>
-				<option value="feedingAmerica">Feeding America</option>
-				<option value="taskForceForGlobalHealth">Task Force for Global Health</option>
+
+<div class="searchTool">
+	<span style="color:red">{{message}}</span>
+	<h4>Add a Transaction</h4>
+	<form class="form-inline" method="post" action="/user/addTransaction">
+		<div class="form-group">
+			<label for="selectCharity">Select Charity:</label>
+			<select name="charityName" class="form-control">
+				{{#each charity}}
+				<option>{{name}}</option>
+				{{/each}}
 			</select>
-		</p>
-	</div>
-	
-	
-	
-	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px">
-		<ul>
-			<li><strong>Website: </strong> Amazon<br/>
-				<strong>The thing(s) you bought:</strong> poptarts<br/> 
-				<strong>Original Price:</strong> $13.99<br/> 
-				<strong>Overcharged Price:</strong> $15.00<br/>
-				<strong>Extra Change: </strong> $1.01<br/>
-				<strong>Date:</strong> 11/19<br/>
-				<strong>Donate Extra Change To:</strong> Need to wait until 11:59pm today<br/>
-				<br/>
-			</li>
-			<li><strong>Website: </strong> Ebay<br/>
-				<strong>The thing(s) you bought:</strong> Sunglasses<br/> 
-				<strong>Original Price:</strong> $8.99<br/> 
-				<strong>Overcharged Price:</strong> $10.00<br/>
-				<strong>Extra Change: </strong> $1.01<br/>
-				<strong>Date:</strong> 11/10<br/>
-				<strong>Donate Extra Change To:</strong> United Way<br/>
-				<br/>
-			</li>
-		</ul>	
-	</div>
-	
-	
-	
+			<label class="sr-only" name="transaction" for="addTransaction">Amount (in dollars)</label>
+			<div class="input-group">
+				<div class="input-group-addon">$</div>
+				<input type="text" class="form-control" name="total" placeholder="Amount">
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">Add Transaction</button>
+	</form>
+</div>
 
-	<div style="margin-left:10%;margin-right:10%;margin-top:50px;padding:20px;">
-		<span>© 2015 Glean</span>
-	</div>
+<div class="searchTool">
+	<span style="color:red">{{charityError}}</span>
+	<h4>Search for Transactions</h4>
+	<form class="form-inline" method="post" action="/user/findcharity"><div class="form-group">
+		<label for="selectCharity">Select Charity:</label>
+		<select name="charity" class="form-control">
+			{{#each charity}}
+			<option>{{name}}</option>
+			{{/each}}
+		</select>
+		<!--<input class="form-control" type="text" name="charity" placeholder='Charity Name'> <br></div>-->
+		<button class="btn btn-primary">Search Charity</button>
+	</form>
+</div>
 
 
-	
+
+<p class="moduleSection" id="visualizedResults">Visualized Result</p>
+<div id="pieChart">
+	<!-- pie chart canvas element -->
+	<canvas id="pieDonut" width="600" height="400" style="float:left"></canvas>
+	<canvas id="bar" width="600" height="400" style="float:left"></canvas>
+	<script>
+
+	//total 10 colors for up to ten charities. If there are more than 10, this needs to be modified!!
+	var coolColors = ["#ADFF2F","#008000","#87CEFA","#20B2AA","#FF8153","#FFEA88","#878BB6","#4ACAB4", "#2E8B57","#FFC0CB"];
+	var colorIndex = 0;
+	var x = document.getElementById("myTable").rows.length;
+	var store = [];
+	for(var i = 1; i < x; i ++)
+	{
+		var y = document.getElementById("myTable").rows[i].cells[0].innerHTML;
+
+		if(store.length == 0)
+		{
+
+			var newEntryValue = Number(document.getElementById("myTable").rows[i].cells[2].innerHTML.substring(1));
+			store.push({value: newEntryValue, color: coolColors[colorIndex++], label: y });
+
+		}
+		else{
+			var check = 0;
+			store.forEach(function(j){
+				if( y == j.label && check == 0){
+					j.value += Number(document.getElementById("myTable").rows[i].cells[2].innerHTML.substring(1));
+					check = 1;
+				}
+			});
+			if(check == 0){
+
+				var newEntryValue = Number(document.getElementById("myTable").rows[i].cells[2].innerHTML.substring(1));
+				store.push({value: newEntryValue, color: coolColors[colorIndex++],label: y });
+
+			}
+
+		}
+	}
+
+	// pie chart options
+	var pieOptions = {
+		segmentShowStroke : true,
+		animationSteps : 125,
+		percentageInnerCutout : 25,
+		animateScale : true
+	}
+	// get pie chart canvas
+	var pieDonut= document.getElementById("pieDonut").getContext("2d");
+	// draw pie chart
+	new Chart(pieDonut).Pie(store, pieOptions);
+
+	/////////////////BAR////////////////////////
+
+	barLabel = [];
+	barData = [];
+
+	for(var z = 0; z <store.length;z++)
+	{
+		barLabel.push(store[z].label);
+		barData.push(store[z].value);
+
+	}
+
+	var data = {
+		labels: barLabel,
+		datasets: [
+			{
+				label: "My First dataset",
+				fillColor: "rgba(151,187,205,0.5)",
+				strokeColor: "rgba(151,187,205,0.8)",
+				highlightFill: "rgba(151,187,205,0.75)",
+				highlightStroke: "rgba(151,187,205,1)",
+				data: barData
+			}
+		]
+	};
+
+	// get bar chart canvas
+	var bar= document.getElementById("bar").getContext("2d");
+	// draw bar chart
+	new Chart(bar).Bar(data, {barShowStroke: false});
+	</script>
+</div>
+<div style="clear:both;"></div>
 
 </div>

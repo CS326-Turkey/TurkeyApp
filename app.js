@@ -1,3 +1,10 @@
+/*
+//  app.js
+//
+//  Main entry point for Glean web application.
+//
+*/
+
 var express = require('express');
 var handlebars = require('express-handlebars');
 
@@ -22,23 +29,7 @@ var morgan = require('morgan');
 
 // user database
 var db = require('./lib/database.js');
-////////////////////////////////////////////////////////////////////////
-//test database.js
-// db.getCollection({},db.User,function(err,users){
-// 	if(err){
-// 		console.log('error')
-// 	}
-// 	else{
-// 		var list={};
-// 		users.forEach(function(user){
-// 			list[user._id]=user;
-// 			//console.log(user);
-// 		});
-// console.log(list);
-// 	}
-// });
 
-///////////////////////////////////////////////////////////////////////
 /*------------*/
 /* Create App */
 /*------------*/
@@ -82,6 +73,9 @@ app.use(flash());
 // using 'combined' gives you Apache-style logging support.
 app.use(morgan('combined'));
 
+// A list of users who are online:
+var online = require('./lib/online').online;
+
 /*-------------*/
 /* Route Setup */
 /*-------------*/
@@ -97,7 +91,7 @@ var team = require('./lib/team.js');
 /* (non-users & non-admin) */
 /*-------------------------*/
  app.get('/about', (req, res) => {
- 	res.render('about');
+ 	res.render('about',{layout:'main'});
  });
 
  app.get('/register', (req, res) => {
@@ -123,7 +117,7 @@ app.get('/team*', (req, res) => {
 		var result = team.one(req.query.user);
 	}
 	if(result.count!==0){
-		res.render('team', {
+		res.render('team', {layout: 'main',
 			members: result.data,
 		});
 	}
@@ -133,11 +127,26 @@ app.get('/team*', (req, res) => {
 	}
 });
 
-// /*-------------------------*/
-// /*  Need to decide Router  */
-// /*-------------------------*/
 app.get('/', (req, res) => {
-	res.redirect('/user/home');
+
+  var user = req.session.user;
+
+  // Redirect to main if session and user is online:
+  if (user && online[user.name]) {
+    if(!(user.admin)){
+    	req.flash('userhome','You are User')
+	 res.redirect('/user/home');
+  }
+  else { // send to admin homepage if admin
+	 req.flash('adminhome','You are Admin')
+	 res.redirect('/admin/home');
+  }
+    }
+    else {
+      // send to public homepage
+      res.render('home', {});
+    }
+
 });
 
 app.get('/logout', (req, res) => {
@@ -163,7 +172,6 @@ app.get('/admin', (req, res) => {
 
 app.post('/adduser', (req, res) => {
 	var name = req.body.name;
-	var pass = req.body.pass;
 	var admin = false;
 	var pass=req.body.pass;
 	var cpass=req.body.cpass;
@@ -182,14 +190,14 @@ app.post('/adduser', (req, res) => {
 	}
 	else{
 		db.addUser(name,fname,lname,pass,email,question,answer,admin);
-		req.flash('register', 'User added!');
-		res.redirect('/register');
+		req.flash('login', 'Signed up! Please log in.');
+		res.redirect('/login');
 	}
 });
 
 app.use((req, res) => {
 	res.status(404);
-	res.render('404');
+	res.render('404',{layout:false});
 });
 
 /*----------------*/
@@ -198,7 +206,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
 	console.error(err.stack);
 	res.status(500);
-	res.render('500');
+	res.render('500',{layout:false});
 });
 
 /*----------------*/
