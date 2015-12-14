@@ -107,16 +107,16 @@ router.get('/dash', (req, res) => {
   // Redirect to main if session and user is online:
   if (user && online[user.name]) {
     if (!(user.admin)) {
-      var message = req.flash('dash') || '';
+      var message = req.flash('dashboard') || '';
       model.getUserTransactions(user._id, function(error, trac) {
         if (error) {
-          req.flash('dash', error);
+          req.flash('dashboard', error);
           res.redirect('/user/home');
         } else {
           var charities = model.getCharities( function(listCharities) {
             var purchases = model.getUserPurchases(user._id, function(error, listPurchases) {
               if (error) {
-                req.flash('dash', error);
+                req.flash('Dashboard', error);
                 res.redirect('/user/home');
               } else {
                 res.render('dashboard', { title : 'Dashboard', layout : 'usermain',
