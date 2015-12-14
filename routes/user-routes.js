@@ -344,7 +344,8 @@ router.post('/addPurchase', (req, res) => {
   var user = req.session.user;
 
   var userid = req.session.user;
-  var amt = (Number)(req.body.amount);
+  var origAmt = (Number)(req.body.amount);
+  var amt = parseFloat((Math.ceil(origAmt) - origAmt).toFixed(2));
   console.log('Total is: ' + amt);
   var merchant = req.body.merchant;
   console.log('The username in routes is ' + userid.name);
